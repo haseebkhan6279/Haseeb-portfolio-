@@ -34,7 +34,6 @@ export default function PricingSection() {
           <h2 id="pricing-heading" className="pricing-section__title">
             {PRICING_INTRO.eyebrow}
           </h2>
-          <p className="pricing-section__lede">{PRICING_INTRO.lede}</p>
         </div>
 
         <div className="pricing-tabs mt-8" role="tablist" aria-label="Pricing packages">

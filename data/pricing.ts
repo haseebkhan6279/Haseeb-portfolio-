@@ -13,7 +13,6 @@ export type PricingPackage = {
 
 export const PRICING_INTRO = {
   eyebrow: "Pricing",
-  lede: "Fair, mid-market pricing — premium quality without agency markup. Unlimited revisions until you sign off.",
   addonsHeading: "Optional add-ons",
   addonsLede: "Stack mobile, Shopify, or AI automation on any core package — bundled pricing available.",
   footerNote:

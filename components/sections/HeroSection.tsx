@@ -341,7 +341,7 @@ export default function HeroSection() {
 
             <button
               type="button"
-              className="hero-scroll-hint btn-interactive mx-auto flex shrink-0 flex-col items-center gap-2 text-sky-400/80 transition-colors hover:text-sky-300 md:mx-0 md:mb-1"
+              className="hero-scroll-hint btn-interactive mx-auto hidden shrink-0 flex-col items-center gap-2 text-sky-400/80 transition-colors hover:text-sky-300 md:mx-0 md:mb-1 md:flex"
               onClick={goToNext}
               aria-label={
                 slideIndex >= HERO_SLIDES.length - 1
