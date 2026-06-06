@@ -32,18 +32,27 @@ export default function ContactSection() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const email = String(fd.get("email") ?? "").trim();
     const message = String(fd.get("message") ?? "").trim();
     const website = String(fd.get("website") ?? "").trim();
+    const interest =
+      serviceInterest.trim() || String(fd.get("serviceInterest") ?? "").trim();
     setErrorMessage(null);
 
     if (website) {
       setStatus("success");
       setServiceInterest("");
+      form.reset();
       return;
     }
-    if (!serviceInterest) {
+    if (!email) {
+      setErrorMessage("Please enter your email address.");
+      setStatus("error");
+      return;
+    }
+    if (!interest) {
       setErrorMessage("Please choose a service you’re interested in.");
       setStatus("error");
       return;
@@ -54,19 +63,36 @@ export default function ContactSection() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, serviceInterest, message, website }),
+        body: JSON.stringify({
+          email,
+          serviceInterest: interest,
+          message,
+          website,
+        }),
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) {
-        setErrorMessage(data.error ?? "Something went wrong.");
+        setErrorMessage(
+          data.error ??
+            `Could not send your message. Email me directly at ${CONTACT.email}.`,
+        );
         setStatus("error");
         return;
       }
-      setStatus("success");
+      form.reset();
       setServiceInterest("");
-      e.currentTarget.reset();
-    } catch {
-      setErrorMessage("Network error. Please try again.");
+      setStatus("success");
+    } catch (err) {
+      const offline =
+        typeof navigator !== "undefined" && navigator.onLine === false;
+      const fetchFailed = err instanceof TypeError;
+      setErrorMessage(
+        offline
+          ? "You appear to be offline. Check your connection and try again."
+          : fetchFailed
+            ? `Could not reach the server. Try again or email ${CONTACT.email}.`
+            : `Something went wrong. Try again or email ${CONTACT.email}.`,
+      );
       setStatus("error");
     }
   }
@@ -107,6 +133,7 @@ export default function ContactSection() {
               <label className="block text-sm text-slate-400">
                 Service interest *
                 <select
+                  name="serviceInterest"
                   value={serviceInterest}
                   onChange={(e) => setServiceInterest(e.target.value)}
                   required
