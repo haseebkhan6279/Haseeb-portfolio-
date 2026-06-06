@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { useLayoutEffect, type RefObject } from "react";
-import { useLightMotion } from "@/hooks/useLightMotion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type Options = {
   itemSelector?: string;
@@ -16,7 +16,7 @@ export function useTekversReveal(
   ref: RefObject<HTMLElement | null>,
   options: Options = {},
 ) {
-  const lightMotion = useLightMotion();
+  const reduced = useReducedMotion();
   const {
     itemSelector = "[data-reveal-item]",
     headerSelector = "[data-reveal-header]",
@@ -26,7 +26,7 @@ export function useTekversReveal(
 
   useLayoutEffect(() => {
     const root = ref.current;
-    if (!root || lightMotion) return;
+    if (!root || reduced) return;
 
     const headerEls = gsap.utils.toArray<HTMLElement>(root.querySelectorAll(headerSelector));
     const items = gsap.utils.toArray<HTMLElement>(root.querySelectorAll(itemSelector));
@@ -77,5 +77,5 @@ export function useTekversReveal(
       gsap.killTweensOf(all);
       gsap.set(all, { clearProps: "opacity,transform" });
     };
-  }, [ref, lightMotion, itemSelector, headerSelector, stagger, threshold]);
+  }, [ref, reduced, itemSelector, headerSelector, stagger, threshold]);
 }

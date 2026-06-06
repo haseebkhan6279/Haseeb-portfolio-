@@ -8,7 +8,7 @@ export type ContactSubmission = {
   message: string;
 };
 
-type SendResult = { ok: true } | { ok: false; status: number };
+type SendResult = { ok: true } | { ok: false; status: number; reason?: string };
 
 function getRecipientEmail() {
   return process.env.CONTACT_TO_EMAIL ?? CONTACT.email;
@@ -60,7 +60,7 @@ async function sendViaResend(
   const to = getRecipientEmail();
   const from = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
 
-  const { error } = await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from,
     to,
     replyTo: submission.email,
@@ -70,10 +70,15 @@ async function sendViaResend(
   });
 
   if (error) {
-    console.error("[contact] Resend error", error);
-    return { ok: false, status: 502 };
+    console.error("[contact] Resend error", { to, from, error });
+    return {
+      ok: false,
+      status: 502,
+      reason: error.message ?? "Resend rejected the send request.",
+    };
   }
 
+  console.info("[contact] Resend sent", { id: data?.id, to, from });
   return { ok: true };
 }
 
@@ -123,14 +128,18 @@ export async function sendContactEmail(submission: ContactSubmission): Promise<S
   const smtpResult = await sendViaSmtp(submission, content);
   if (smtpResult) return smtpResult;
 
-  console.info(
-    "[contact] submission logged only — add RESEND_API_KEY or SMTP_* vars to .env.local",
+  console.warn(
+    "[contact] no email provider configured — set RESEND_API_KEY or SMTP_* on the server",
     {
       to: getRecipientEmail(),
-      ...submission,
-      messagePreview: submission.message.slice(0, 280),
+      serviceInterest: submission.serviceInterest,
+      senderEmail: submission.email,
     },
   );
 
-  return { ok: true };
+  return {
+    ok: false,
+    status: 503,
+    reason: "Email delivery is not configured on the server.",
+  };
 }

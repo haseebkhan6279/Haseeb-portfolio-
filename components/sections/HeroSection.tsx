@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import { HERO, HERO_SLIDES, HERO_STATS } from "@/data/hero";
@@ -102,6 +102,7 @@ export default function HeroSection() {
   const reduced = useReducedMotion();
   const lightMotion = useLightMotion();
   const immersiveHero = !reduced && !lightMotion;
+  const enableHeroMotion = !reduced;
 
   useEffect(() => {
     slideRef.current = slideIndex;
@@ -126,14 +127,24 @@ export default function HeroSection() {
       scrollPastHero();
       return;
     }
-    if (lightMotion) {
-      setSlideIndex(current + 1);
-      return;
-    }
     if (isAnimatingRef.current) return;
     const headline = headlineRef.current;
     const description = descriptionRef.current;
     if (!headline || !description) return;
+
+    if (lightMotion) {
+      isAnimatingRef.current = true;
+      runTransition(
+        headline,
+        description,
+        1,
+        () => setSlideIndex(current + 1),
+        () => {
+          isAnimatingRef.current = false;
+        },
+      );
+      return;
+    }
 
     wheelAccumulatedRef.current = 0;
     isAnimatingRef.current = true;
@@ -155,13 +166,23 @@ export default function HeroSection() {
   const goToPrev = useCallback(() => {
     const current = slideRef.current;
     if (current <= 0 || isAnimatingRef.current) return;
-    if (lightMotion) {
-      setSlideIndex(current - 1);
-      return;
-    }
     const headline = headlineRef.current;
     const description = descriptionRef.current;
     if (!headline || !description) return;
+
+    if (lightMotion) {
+      isAnimatingRef.current = true;
+      runTransition(
+        headline,
+        description,
+        -1,
+        () => setSlideIndex(current - 1),
+        () => {
+          isAnimatingRef.current = false;
+        },
+      );
+      return;
+    }
 
     wheelAccumulatedRef.current = 0;
     isAnimatingRef.current = true;
@@ -221,8 +242,8 @@ export default function HeroSection() {
     return () => window.removeEventListener("wheel", onWheel, { capture: true });
   }, [lenis, goToNext, goToPrev, immersiveHero]);
 
-  useEffect(() => {
-    if (!immersiveHero) return;
+  useLayoutEffect(() => {
+    if (!enableHeroMotion) return;
     const ctx = gsap.context(() => {
       const line1 = headlineRef.current?.querySelector(".hero-line--outer-left");
       const line3 = headlineRef.current?.querySelector(".hero-line--outer-right");
@@ -266,7 +287,7 @@ export default function HeroSection() {
       }
     });
     return () => ctx.revert();
-  }, [immersiveHero]);
+  }, [enableHeroMotion]);
 
   const slide = HERO_SLIDES[slideIndex];
 

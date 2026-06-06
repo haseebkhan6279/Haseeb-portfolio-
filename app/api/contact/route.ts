@@ -46,9 +46,14 @@ export async function POST(req: Request) {
   const result = await sendContactEmail({ email, serviceInterest, message });
 
   if (!result.ok) {
+    console.error("[contact] send failed", result.reason ?? "unknown");
     return NextResponse.json(
-      { error: "Could not send right now. Please try again or email us directly." },
-      { status: 502 },
+      {
+        error:
+          result.reason ??
+          "Could not send right now. Please try again or email us directly.",
+      },
+      { status: result.status },
     );
   }
 

@@ -188,16 +188,10 @@ export default function ServicesSection() {
     >
       <div className="services-section__glow" aria-hidden />
 
-      {!useDesktopScroller ? (
-        <div className="section-shell services-section__header lg:hidden">
-          {servicesHeader("services-heading")}
-        </div>
-      ) : null}
-
       {/* Desktop: pinned horizontal scroll */}
       <div
         ref={pinWrapRef}
-        className={useDesktopScroller ? "hidden" : "services-scroller hidden lg:block"}
+        className={useDesktopScroller ? "services-scroller hidden lg:block" : "hidden"}
         style={{ height: pinHeight }}
       >
         <div ref={pinStageRef} className="services-scroller__stage">
