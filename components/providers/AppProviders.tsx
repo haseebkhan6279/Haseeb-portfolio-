@@ -5,27 +5,30 @@ import { useEffect } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
 import CustomCursor from "@/components/ui/CustomCursor";
 import LenisScrollSync from "@/components/providers/LenisScrollSync";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useLightMotion } from "@/hooks/useLightMotion";
 
 export default function AppProviders({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const reduced = useReducedMotion();
+  const lightMotion = useLightMotion();
 
   useEffect(() => {
-    const onRefresh = () => ScrollTrigger.refresh();
+    let timeout: ReturnType<typeof setTimeout>;
+    const onRefresh = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => ScrollTrigger.refresh(), 150);
+    };
     window.addEventListener("resize", onRefresh);
-    return () => window.removeEventListener("resize", onRefresh);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", onRefresh);
+    };
   }, []);
 
-  if (reduced) {
-    return (
-      <>
-        {children}
-      </>
-    );
+  if (lightMotion) {
+    return <>{children}</>;
   }
 
   return (

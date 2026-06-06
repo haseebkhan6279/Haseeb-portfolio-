@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import { HERO, HERO_SLIDES, HERO_STATS } from "@/data/hero";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { useLightMotion } from "@/hooks/useLightMotion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const SCROLL_STEP = 320;
@@ -99,6 +100,8 @@ export default function HeroSection() {
   const wheelAccumulatedRef = useRef(0);
   const lenis = useLenis();
   const reduced = useReducedMotion();
+  const lightMotion = useLightMotion();
+  const immersiveHero = !reduced && !lightMotion;
 
   useEffect(() => {
     slideRef.current = slideIndex;
@@ -106,17 +109,25 @@ export default function HeroSection() {
 
   const scrollPastHero = useCallback(() => {
     const target = document.getElementById("services");
+    if (lightMotion) {
+      target?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     if (target) {
       lenis?.scrollTo(target, { offset: -72, duration: 1.1 });
     } else {
       lenis?.scrollTo(window.innerHeight, { duration: 1.1 });
     }
-  }, [lenis]);
+  }, [lenis, lightMotion]);
 
   const goToNext = useCallback(() => {
     const current = slideRef.current;
     if (current >= HERO_SLIDES.length - 1) {
       scrollPastHero();
+      return;
+    }
+    if (lightMotion) {
+      setSlideIndex(current + 1);
       return;
     }
     if (isAnimatingRef.current) return;
@@ -139,11 +150,15 @@ export default function HeroSection() {
         lenis?.start();
       },
     );
-  }, [lenis, scrollPastHero]);
+  }, [lenis, scrollPastHero, lightMotion]);
 
   const goToPrev = useCallback(() => {
     const current = slideRef.current;
     if (current <= 0 || isAnimatingRef.current) return;
+    if (lightMotion) {
+      setSlideIndex(current - 1);
+      return;
+    }
     const headline = headlineRef.current;
     const description = descriptionRef.current;
     if (!headline || !description) return;
@@ -163,9 +178,10 @@ export default function HeroSection() {
         lenis?.start();
       },
     );
-  }, [lenis]);
+  }, [lenis, lightMotion]);
 
   useLenis((instance) => {
+    if (!immersiveHero) return;
     const y = typeof instance?.scroll === "number" ? instance.scroll : window.scrollY;
     if (y <= AT_TOP_THRESHOLD) exitingHeroRef.current = false;
     if (slideRef.current === HERO_SLIDES.length - 1) exitingHeroRef.current = true;
@@ -176,7 +192,7 @@ export default function HeroSection() {
   }, []);
 
   useEffect(() => {
-    if (reduced) return;
+    if (!immersiveHero) return;
     const onWheel = (e: WheelEvent) => {
       if (isAnimatingRef.current) return;
       const y = lenis?.scroll ?? window.scrollY;
@@ -203,10 +219,10 @@ export default function HeroSection() {
     };
     window.addEventListener("wheel", onWheel, { passive: false, capture: true });
     return () => window.removeEventListener("wheel", onWheel, { capture: true });
-  }, [lenis, goToNext, goToPrev, reduced]);
+  }, [lenis, goToNext, goToPrev, immersiveHero]);
 
   useEffect(() => {
-    if (reduced) return;
+    if (!immersiveHero) return;
     const ctx = gsap.context(() => {
       const line1 = headlineRef.current?.querySelector(".hero-line--outer-left");
       const line3 = headlineRef.current?.querySelector(".hero-line--outer-right");
@@ -250,7 +266,7 @@ export default function HeroSection() {
       }
     });
     return () => ctx.revert();
-  }, [reduced]);
+  }, [immersiveHero]);
 
   const slide = HERO_SLIDES[slideIndex];
 

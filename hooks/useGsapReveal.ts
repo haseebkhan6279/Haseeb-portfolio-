@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 import { gsap } from "@/lib/gsap";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useLightMotion } from "@/hooks/useLightMotion";
 
 type RevealOptions = {
   selector?: string;
@@ -15,12 +15,12 @@ export function useGsapReveal(
   ref: RefObject<HTMLElement | null>,
   options: RevealOptions = {},
 ) {
-  const reduced = useReducedMotion();
+  const lightMotion = useLightMotion();
   const { selector = "[data-reveal]", y = 48, stagger = 0.1, threshold = 0.12 } = options;
 
   useLayoutEffect(() => {
     const root = ref.current;
-    if (!root || reduced) return;
+    if (!root || lightMotion) return;
 
     const items = gsap.utils.toArray<HTMLElement>(root.querySelectorAll(selector));
     if (items.length === 0) return;
@@ -51,5 +51,5 @@ export function useGsapReveal(
       gsap.killTweensOf(items);
       gsap.set(items, { clearProps: "opacity,transform" });
     };
-  }, [ref, reduced, selector, y, stagger, threshold]);
+  }, [ref, lightMotion, selector, y, stagger, threshold]);
 }

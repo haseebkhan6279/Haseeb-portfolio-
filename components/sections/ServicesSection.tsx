@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { SERVICES, SERVICES_INTRO } from "@/data/services";
 import MagneticButton from "@/components/ui/MagneticButton";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useLightMotion } from "@/hooks/useLightMotion";
 import { useTekversReveal } from "@/hooks/useTekversReveal";
 
 export default function ServicesSection() {
@@ -18,7 +18,8 @@ export default function ServicesSection() {
   const mobileRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [pinHeight, setPinHeight] = useState("220vh");
-  const reduced = useReducedMotion();
+  const lightMotion = useLightMotion();
+  const useDesktopScroller = !lightMotion;
 
   useTekversReveal(mobileRef, {
     headerSelector: "[data-mobile-reveal-header]",
@@ -47,7 +48,14 @@ export default function ServicesSection() {
     }, 150);
     window.addEventListener("resize", updatePinHeight);
 
-    if (reduced || !pinWrap || !pinStage || !viewport || !track) {
+    if (!useDesktopScroller || !pinWrap || !pinStage || !viewport || !track) {
+      return () => {
+        window.clearTimeout(t);
+        window.removeEventListener("resize", updatePinHeight);
+      };
+    }
+
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
       return () => {
         window.clearTimeout(t);
         window.removeEventListener("resize", updatePinHeight);
@@ -119,10 +127,10 @@ export default function ServicesSection() {
       ScrollTrigger.removeEventListener("refreshInit", updatePinHeight);
       ctx.revert();
     };
-  }, [reduced]);
+  }, [useDesktopScroller]);
 
   useLayoutEffect(() => {
-    if (reduced) return;
+    if (!useDesktopScroller) return;
     const track = trackRef.current;
     if (!track) return;
 
@@ -145,7 +153,7 @@ export default function ServicesSection() {
         });
       }
     });
-  }, [activeIndex, reduced]);
+  }, [activeIndex, useDesktopScroller]);
 
   const active = SERVICES[activeIndex];
 
@@ -180,7 +188,7 @@ export default function ServicesSection() {
     >
       <div className="services-section__glow" aria-hidden />
 
-      {!reduced ? (
+      {!useDesktopScroller ? (
         <div className="section-shell services-section__header lg:hidden">
           {servicesHeader("services-heading")}
         </div>
@@ -189,7 +197,7 @@ export default function ServicesSection() {
       {/* Desktop: pinned horizontal scroll */}
       <div
         ref={pinWrapRef}
-        className={reduced ? "hidden" : "services-scroller hidden lg:block"}
+        className={useDesktopScroller ? "hidden" : "services-scroller hidden lg:block"}
         style={{ height: pinHeight }}
       >
         <div ref={pinStageRef} className="services-scroller__stage">
@@ -240,8 +248,8 @@ export default function ServicesSection() {
       </div>
 
       {/* Mobile / reduced motion: vertical cards */}
-      <div ref={mobileRef} className={`section-shell pb-16 ${reduced ? "" : "lg:hidden"}`}>
-        {reduced && (
+      <div ref={mobileRef} className={`section-shell pb-16 ${useDesktopScroller ? "lg:hidden" : ""}`}>
+        {!useDesktopScroller && (
           <div className="services-section__header">{servicesHeader("services-heading")}</div>
         )}
         <ul className="mt-8 grid gap-5">
