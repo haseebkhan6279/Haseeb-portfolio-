@@ -1355,6 +1355,59 @@ textarea:focus-visible {
     font-size: clamp(2.25rem, 12vw, 3.75rem);
     line-height: 1.05;
   }
+
+  .hero-entrance .hero-line--outer-left {
+    opacity: 0;
+    animation: hero-slide-left 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .hero-entrance .hero-line--center {
+    opacity: 0;
+    animation: hero-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+
+  .hero-entrance .hero-line--outer-right {
+    opacity: 0;
+    animation: hero-slide-right 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards;
+  }
+
+  .hero-entrance .hero-description {
+    opacity: 0;
+    animation: hero-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
+  }
+}
+
+@keyframes hero-slide-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-1.5rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-slide-right {
+  from {
+    opacity: 0;
+    transform: translate3d(1.5rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

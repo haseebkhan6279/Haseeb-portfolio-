@@ -243,7 +243,7 @@ export default function HeroSection() {
   }, [lenis, goToNext, goToPrev, immersiveHero]);
 
   useLayoutEffect(() => {
-    if (!enableHeroMotion) return;
+    if (!enableHeroMotion || lightMotion) return;
     const ctx = gsap.context(() => {
       const line1 = headlineRef.current?.querySelector(".hero-line--outer-left");
       const line3 = headlineRef.current?.querySelector(".hero-line--outer-right");
@@ -287,13 +287,40 @@ export default function HeroSection() {
       }
     });
     return () => ctx.revert();
-  }, [enableHeroMotion]);
+  }, [enableHeroMotion, lightMotion]);
+
+  useEffect(() => {
+    if (reduced || !lightMotion) return;
+
+    const advance = () => {
+      if (isAnimatingRef.current) return;
+      const current = slideRef.current;
+      const headline = headlineRef.current;
+      const description = descriptionRef.current;
+      if (!headline || !description) return;
+
+      const next = current >= HERO_SLIDES.length - 1 ? 0 : current + 1;
+      isAnimatingRef.current = true;
+      runTransition(
+        headline,
+        description,
+        1,
+        () => setSlideIndex(next),
+        () => {
+          isAnimatingRef.current = false;
+        },
+      );
+    };
+
+    const id = window.setInterval(advance, 5000);
+    return () => window.clearInterval(id);
+  }, [reduced, lightMotion]);
 
   const slide = HERO_SLIDES[slideIndex];
 
   return (
     <section
-      className="relative flex min-h-[100svh] flex-col overflow-hidden pt-[4.5rem]"
+      className={`relative flex min-h-[100svh] flex-col overflow-hidden pt-[4.5rem]${enableHeroMotion ? " hero-entrance" : ""}`}
       aria-label="Hero"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(14,165,233,0.14),transparent)]" />
@@ -303,16 +330,14 @@ export default function HeroSection() {
           <div ref={headlineRef}>
             <h1 className="headline-display max-w-5xl text-balance uppercase">
               <span className="hero-line--outer-left block text-slate-500">{HERO.line1}</span>
-              <span className="block text-slate-100">
-                <span className="text-slate-100">{slide.line2}</span>
-              </span>
+              <span className="hero-line--center block text-slate-100">{slide.line2}</span>
               <span className="hero-line--outer-right block text-slate-500">{HERO.line3}</span>
             </h1>
           </div>
 
           <p
             ref={descriptionRef}
-            className="mt-6 max-w-2xl border-l border-sky-500/30 pl-6 text-[var(--text-lede)] leading-relaxed text-slate-400 md:mt-8"
+            className="hero-description mt-6 max-w-2xl pl-0 text-[var(--text-lede)] leading-relaxed text-slate-400 md:mt-8 md:border-l md:border-sky-500/30 md:pl-6"
           >
             {slide.description}
           </p>
