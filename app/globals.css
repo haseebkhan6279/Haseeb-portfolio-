@@ -35,7 +35,8 @@ html {
 
 #services,
 #projects,
-#pricing,
+#about,
+#testimonials,
 #process,
 #why,
 #contact {
@@ -620,6 +621,125 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--fg) 30%, transparent);
 }
 
+.portfolio-work__highlights--open {
+  padding-top: 0.5rem;
+}
+
+.portfolio-work__case {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.portfolio-work__case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.portfolio-work__case-tag {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.portfolio-work__case-client {
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+}
+
+.portfolio-work__case-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.portfolio-work__case-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.portfolio-work__case-text {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+.portfolio-work__case-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.portfolio-work__case-results li {
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.portfolio-work__case-results li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+
+.portfolio-work__card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.portfolio-work__action {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+  transition: color 0.2s;
+}
+
+.portfolio-work__action:hover {
+  color: var(--accent);
+}
+
+.portfolio-work__action--primary {
+  color: var(--accent);
+}
+
+.portfolio-work__card-url {
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+  width: 100%;
+}
+
+.section-pad-sm {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Services — pinned horizontal scroll + cards */
 .services-section {

@@ -31,20 +31,52 @@ function ProjectMedia({ project }: { project: Project }) {
         loading="lazy"
       />
       <div className="portfolio-work__media-scrim" aria-hidden />
-      <span className="portfolio-work__media-icon" aria-hidden>
-        {isPhone ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="7" y="2" width="10" height="20" rx="2" />
-            <path d="M11 18h2" strokeLinecap="round" />
-          </svg>
-        ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20" strokeLinecap="round" />
-          </svg>
-        )}
-      </span>
     </div>
+  );
+}
+
+function CaseStudyBody({ project }: { project: Project }) {
+  const cs = project.caseStudy;
+
+  if (cs) {
+    return (
+      <div className="portfolio-work__case">
+        <div className="portfolio-work__case-meta">
+          <span className="portfolio-work__case-tag">{cs.industry}</span>
+          <span className="portfolio-work__case-client">{cs.client}</span>
+        </div>
+
+        <div className="portfolio-work__case-block">
+          <h4 className="portfolio-work__case-label">Problem</h4>
+          <p className="portfolio-work__case-text">{cs.problem}</p>
+        </div>
+
+        <div className="portfolio-work__case-block">
+          <h4 className="portfolio-work__case-label">Solution</h4>
+          <p className="portfolio-work__case-text">{cs.solution}</p>
+        </div>
+
+        <div className="portfolio-work__case-block">
+          <h4 className="portfolio-work__case-label">Results</h4>
+          <ul className="portfolio-work__case-results">
+            {cs.results.map((r) => (
+              <li key={r}>{r}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <p className="portfolio-work__card-detail">{project.description}</p>
+      <ul className="portfolio-work__highlights portfolio-work__highlights--open">
+        {project.highlights.map((line) => (
+          <li key={line}>{line}</li>
+        ))}
+      </ul>
+    </>
   );
 }
 
@@ -61,6 +93,7 @@ export default function WorkSection() {
 
   useTekversReveal(sectionRef, {
     headerSelector: "[data-portfolio-intro]",
+    itemSelector: "[data-portfolio-item]",
     stagger: 0.1,
   });
 
@@ -94,78 +127,57 @@ export default function WorkSection() {
           {visibleProjects.map((project, index) => (
             <li
               key={project.name}
+              data-portfolio-item
               ref={
                 showAllProjects && index === PORTFOLIO_INTRO.initialVisible
                   ? firstRevealedItemRef
                   : undefined
               }
             >
-              <article className="portfolio-work__card">
+              <article className="portfolio-work__card portfolio-work__card--case">
                 <ProjectMedia project={project} />
 
                 <div className="portfolio-work__body">
                   <div className="portfolio-work__card-head">
                     <h3 className="portfolio-work__card-title">{project.name}</h3>
-                    <div className="portfolio-work__card-links">
-                      {project.url ? (
-                        <a
-                          href={project.url}
-                          className="portfolio-work__card-link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {formatProjectUrl(project.url)}
-                        </a>
-                      ) : null}
-                      {project.github ? (
-                        <a
-                          href={project.github}
-                          className="portfolio-work__card-link portfolio-work__card-link--github"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          GitHub
-                        </a>
-                      ) : null}
-                    </div>
+                    <p className="portfolio-work__card-tagline">{project.tagline}</p>
                   </div>
-                  <p className="portfolio-work__card-tagline">{project.tagline}</p>
-                  <p className="portfolio-work__card-detail">{project.description}</p>
+
+                  <CaseStudyBody project={project} />
 
                   {project.stack.length > 0 ? (
-                    <ul className="portfolio-work__stack" aria-label="Tech stack">
+                    <ul className="portfolio-work__stack" aria-label="Technologies used">
                       {project.stack.map((tech) => (
                         <li key={tech}>{tech}</li>
                       ))}
                     </ul>
                   ) : null}
 
-                  <details className="portfolio-work__details">
-                    <summary className="portfolio-work__summary">
-                      <span>Scope &amp; delivery</span>
-                      <span className="portfolio-work__summary-icon" aria-hidden>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        >
-                          <path
-                            d="M6 9l6 6 6-6"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </summary>
-                    <ul className="portfolio-work__highlights">
-                      {project.highlights.map((line) => (
-                        <li key={line}>{line}</li>
-                      ))}
-                    </ul>
-                  </details>
+                  <div className="portfolio-work__card-actions">
+                    {project.url ? (
+                      <a
+                        href={project.url}
+                        className="portfolio-work__action portfolio-work__action--primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Live Demo →
+                      </a>
+                    ) : null}
+                    {project.github ? (
+                      <a
+                        href={project.github}
+                        className="portfolio-work__action"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    ) : null}
+                    {project.url ? (
+                      <span className="portfolio-work__card-url">{formatProjectUrl(project.url)}</span>
+                    ) : null}
+                  </div>
                 </div>
               </article>
             </li>
@@ -182,9 +194,7 @@ export default function WorkSection() {
               aria-controls="projects-grid"
               aria-label="Show more projects"
             >
-              <span className="portfolio-work__expand-label">
-                {PORTFOLIO_INTRO.expandLabel}
-              </span>
+              <span className="portfolio-work__expand-label">{PORTFOLIO_INTRO.expandLabel}</span>
               <span className="portfolio-work__expand-icon" aria-hidden>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <path

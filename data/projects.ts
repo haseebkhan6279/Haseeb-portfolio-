@@ -4,10 +4,10 @@ import type { Project } from "./project-types";
 export type { Project, ProjectVisual } from "./project-types";
 
 export const PORTFOLIO_INTRO = {
-  eyebrow: "Portfolio",
-  lede: "Selected client work and product builds — shipped end-to-end from discovery through launch.",
-  initialVisible: 9,
-  expandLabel: "More work",
+  eyebrow: "Case Studies",
+  lede: "Real projects, real outcomes — see how I help businesses solve problems and ship products that perform.",
+  initialVisible: 6,
+  expandLabel: "View more projects",
 } as const;
 
 export const PROJECTS: Project[] = [
@@ -25,6 +25,19 @@ export const PROJECTS: Project[] = [
       "Flight monitoring, meet-and-greet, and 24/7 booking support",
       "Fleet options from saloon to 8-seater minibus with secure checkout",
     ],
+    caseStudy: {
+      client: "Cab.uk",
+      industry: "Transport & Travel",
+      problem:
+        "Needed a UK-wide booking platform covering 4,000+ routes with instant quotes, multilingual support, and SEO visibility across airports.",
+      solution:
+        "Built a Next.js platform with route comparison, fixed-fare checkout, flight tracking, and localized SEO pages for 19 airports and 111+ cities.",
+      results: [
+        "4,000+ bookable routes live",
+        "19 UK airports covered",
+        "Multi-language site with 24/7 booking",
+      ],
+    },
   },
   {
     name: "Vellay.pro",
@@ -41,6 +54,19 @@ export const PROJECTS: Project[] = [
       "Multi-venue support with role-based owner and staff access",
       "Revenue analytics, sport breakdowns, and booking source tracking",
     ],
+    caseStudy: {
+      client: "Vellay",
+      industry: "Sports & Recreation",
+      problem:
+        "Venue owners managed bookings across spreadsheets with no revenue visibility or multi-location support.",
+      solution:
+        "Delivered a SaaS owner dashboard with scheduling, role-based access, and real-time revenue analytics across venues.",
+      results: [
+        "Unified booking & revenue ops",
+        "Multi-venue management",
+        "Role-based staff access",
+      ],
+    },
   },
   {
     name: "Vellay.app",
@@ -56,6 +82,19 @@ export const PROJECTS: Project[] = [
       "Map-based search with filters for sport and location",
       "Pairs with Vellay.pro for venue-owner operations",
     ],
+    caseStudy: {
+      client: "Vellay",
+      industry: "Sports & Recreation",
+      problem:
+        "Players struggled to find available courts and book sessions without calling venues directly.",
+      solution:
+        "Built a player-facing app with map search, live availability, and instant booking — synced with the owner platform.",
+      results: [
+        "Instant court booking",
+        "Map-based venue discovery",
+        "End-to-end player experience",
+      ],
+    },
   },
   {
     name: "Court Chuno",
@@ -72,6 +111,19 @@ export const PROJECTS: Project[] = [
       "Cross-platform delivery for iOS and Android",
       "Search, booking, notifications, and match coordination in one app",
     ],
+    caseStudy: {
+      client: "Court Chuno",
+      industry: "Sports & Mobile",
+      problem:
+        "Futsal players needed a single app to book courts, coordinate matches, and communicate in real time.",
+      solution:
+        "Shipped a React Native app with Firebase backend for booking, chat, notifications, and cross-platform delivery.",
+      results: [
+        "iOS & Android from one codebase",
+        "Real-time player chat",
+        "End-to-end booking flow",
+      ],
+    },
   },
   {
     name: "Flex Fuel",
@@ -88,6 +140,19 @@ export const PROJECTS: Project[] = [
       "Workout tracking, programs, and progress in web and mobile views",
       "React.js and Node.js full-stack product experience",
     ],
+    caseStudy: {
+      client: "Flex Fuel",
+      industry: "Health & Fitness",
+      problem:
+        "Gym members lacked a unified platform for workouts, nutrition tracking, and personalized trainer guidance.",
+      solution:
+        "Built a full-stack fitness platform with AI nutrition assistant, workout programs, and trainer dashboards.",
+      results: [
+        "AI-powered diet guidance",
+        "Unified workout tracking",
+        "Trainer-member interaction",
+      ],
+    },
   },
   {
     name: "DEGN DApp",
@@ -104,6 +169,19 @@ export const PROJECTS: Project[] = [
       "Multi-source price data and secure JWT authentication",
       "Trading history, charts, and comprehensive API documentation",
     ],
+    caseStudy: {
+      client: "DEGN",
+      industry: "Web3 / FinTech",
+      problem:
+        "Needed a production-grade Solana trading platform with wallet flows, portfolio tracking, and real-time price data.",
+      solution:
+        "Delivered a Next.js + NestJS platform with Jupiter API integration, JWT auth, trading charts, and wallet management.",
+      results: [
+        "Live Solana DEX trading",
+        "Portfolio & price tracking",
+        "Secure wallet integration",
+      ],
+    },
   },
   {
     name: "BestVersion1",

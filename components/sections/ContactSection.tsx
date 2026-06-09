@@ -104,78 +104,128 @@ export default function ContactSection() {
       className="section-pad border-t border-white/5 pb-24"
       aria-labelledby="contact-form-heading"
     >
-      <div className="section-shell max-w-2xl">
-        <h2 id="contact-form-heading" className="font-display text-2xl text-slate-50" data-contact-reveal>
-          Send me a message
-        </h2>
-        <div className="glass-panel mt-8 rounded-2xl p-5 sm:p-8" data-contact-reveal>
-          {status === "success" ? (
-            <p className="text-slate-300">
-              Thanks—we&apos;ll reply within 24 hours at{" "}
-              <a href={`mailto:${CONTACT.email}`} className="text-sky-300">
-                {CONTACT.email}
-              </a>
-              .
+      <div className="section-shell">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <div data-contact-reveal>
+            <p className="eyebrow">Contact</p>
+            <h2 id="contact-form-heading" className="headline-section mt-4 text-slate-50">
+              Have a project in mind? Let&apos;s build it together.
+            </h2>
+            <p className="mt-4 text-[var(--text-lede)] text-slate-400">
+              Share your goals and timeline — I&apos;ll reply within {CONTACT.responseTime} with a
+              free consultation and clear next steps.
             </p>
-          ) : (
-            <form className="space-y-5" onSubmit={handleSubmit} noValidate>
-              <label className="block text-sm text-slate-400">
-                Email *
-                <input
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="your@email.com"
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100"
-                  disabled={status === "sending"}
-                />
-              </label>
-              <label className="block text-sm text-slate-400">
-                Service interest *
-                <select
-                  name="serviceInterest"
-                  value={serviceInterest}
-                  onChange={(e) => setServiceInterest(e.target.value)}
-                  required
-                  className="contact-form__select mt-2 w-full rounded-xl border border-white/15 bg-white px-4 py-3 text-slate-900"
-                  disabled={status === "sending"}
+
+            <ul className="mt-8 space-y-4 text-sm">
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="flex items-center gap-3 text-slate-300 transition-colors hover:text-sky-300"
                 >
-                  <option value="">Select a service</option>
-                  {CONTACT_SERVICE_OPTIONS.map((o) => (
-                    <option key={o} value={o}>
-                      {o}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="sr-only" aria-hidden>
-                Website
-                <input name="website" type="text" tabIndex={-1} defaultValue="" />
-              </label>
-              <label className="block text-sm text-slate-400">
-                Project details
-                <textarea
-                  name="message"
-                  rows={4}
-                  placeholder="Timeline, scope, links—anything that helps."
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100"
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-sky-400">
+                    ✉
+                  </span>
+                  {CONTACT.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-slate-300 transition-colors hover:text-sky-300"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-sky-400">
+                    WA
+                  </span>
+                  WhatsApp — {CONTACT.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT.linkedIn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-slate-300 transition-colors hover:text-sky-300"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-sky-400">
+                    in
+                  </span>
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="glass-panel rounded-2xl p-5 sm:p-8" data-contact-reveal>
+            {status === "success" ? (
+              <p className="text-slate-300">
+                Thanks — I&apos;ll reply within {CONTACT.responseTime} at{" "}
+                <a href={`mailto:${CONTACT.email}`} className="text-sky-300">
+                  {CONTACT.email}
+                </a>
+                .
+              </p>
+            ) : (
+              <form className="space-y-5" onSubmit={handleSubmit} noValidate>
+                <label className="block text-sm text-slate-400">
+                  Email *
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="your@email.com"
+                    className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100"
+                    disabled={status === "sending"}
+                  />
+                </label>
+                <label className="block text-sm text-slate-400">
+                  Service interest *
+                  <select
+                    name="serviceInterest"
+                    value={serviceInterest}
+                    onChange={(e) => setServiceInterest(e.target.value)}
+                    required
+                    className="contact-form__select mt-2 w-full rounded-xl border border-white/15 bg-white px-4 py-3 text-slate-900"
+                    disabled={status === "sending"}
+                  >
+                    <option value="">Select a service</option>
+                    {CONTACT_SERVICE_OPTIONS.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="sr-only" aria-hidden>
+                  Website
+                  <input name="website" type="text" tabIndex={-1} defaultValue="" />
+                </label>
+                <label className="block text-sm text-slate-400">
+                  Project details
+                  <textarea
+                    name="message"
+                    rows={4}
+                    placeholder="What are you building? Timeline, budget range, links — anything that helps."
+                    className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100"
+                    disabled={status === "sending"}
+                  />
+                </label>
+                {status === "error" && errorMessage ? (
+                  <p className="text-sm text-red-400" role="alert">
+                    {errorMessage}
+                  </p>
+                ) : null}
+                <button
+                  type="submit"
                   disabled={status === "sending"}
-                />
-              </label>
-              {status === "error" && errorMessage ? (
-                <p className="text-sm text-red-400" role="alert">
-                  {errorMessage}
-                </p>
-              ) : null}
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="btn-interactive w-full rounded-full bg-sky-400 px-8 py-3.5 text-sm font-semibold text-slate-950 hover:bg-sky-300 disabled:opacity-60 sm:w-auto"
-              >
-                {status === "sending" ? "Sending…" : "Send Message →"}
-              </button>
-            </form>
-          )}
+                  className="btn-interactive w-full rounded-full bg-sky-400 px-8 py-3.5 text-sm font-semibold text-slate-950 hover:bg-sky-300 disabled:opacity-60 sm:w-auto"
+                >
+                  {status === "sending" ? "Sending…" : "Send Project Inquiry →"}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>

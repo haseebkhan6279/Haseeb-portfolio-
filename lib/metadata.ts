@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PROFILE, CONTACT } from "@/data/site";
+import { PROFILE } from "@/data/site";
 
 /** Set `NEXT_PUBLIC_SITE_URL` in production (e.g. https://yourdomain.com). */
 export function getSiteUrl(): string {
@@ -13,24 +13,25 @@ export const SITE_URL = getSiteUrl();
 
 export const SEO = {
   siteName: PROFILE.name,
-  defaultTitle: `${PROFILE.name} — Web Developer & Designer`,
-  titleTemplate: `%s | ${PROFILE.name}`,
+  defaultTitle: `${PROFILE.displayName} — Freelance Web Developer for Growing Businesses`,
+  titleTemplate: `%s | ${PROFILE.displayName}`,
   description:
-    "Haseeb Gulraiz Khan — full-stack developer & designer. I build websites, web apps, Shopify stores, and AI automation for startups and brands. Based in Lahore, available worldwide.",
+    "Hire Haseeb Gulraiz Khan — freelance web developer helping businesses build fast websites, SaaS products, e-commerce stores, and AI integrations. 25+ projects shipped. Free consultation within 24 hours.",
   keywords: [
-    "Haseeb Gulraiz Khan",
     "freelance web developer",
-    "Next.js developer",
-    "web designer portfolio",
-    "landing page design",
-    "web application development",
-    "AI automation",
-    "Shopify developer",
-    "Lahore web developer",
-    "Pakistan freelancer",
-    "haseebkhan6279",
-    "web design blog",
-    "SEO tips",
+    "hire web developer",
+    "freelance web developer Pakistan",
+    "custom web development",
+    "SaaS developer",
+    "e-commerce developer",
+    "landing page developer",
+    "Next.js freelancer",
+    "mobile app developer",
+    "AI integration developer",
+    "Haseeb Gulraiz Khan",
+    "Lahore freelance developer",
+    "website optimization",
+    "conversion-focused web design",
   ],
   author: PROFILE.name,
   locale: "en_US",
@@ -64,7 +65,7 @@ export function buildPageMetadata({ title, description, path }: PageMetaInput): 
       description,
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: fullTitle,
       description,
     },
@@ -145,7 +146,7 @@ export const rootMetadata: Metadata = {
     description: SEO.description,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: SEO.defaultTitle,
     description: SEO.description,
   },

@@ -3,26 +3,24 @@ import { PROJECTS } from "@/data/projects";
 
 export const CTA = {
   eyebrow: "Let's Work Together",
-  headline: "Have a project in mind?",
+  headline: "Have a project in mind? Let's build it together.",
   subtext:
-    "Send me a message — I'll reply with a free consultation and detailed quote within 24 hours. No commitment required.",
-  primary: { label: "Send a Message →", href: "/#contact" },
-  secondary: { label: "GitHub Profile", href: CONTACT.github },
+    "Tell me about your goals — I'll reply within 24 hours with a free consultation and a clear plan. No commitment required.",
+  primary: { label: "Start Your Project →", href: "/#contact" },
+  secondary: { label: "View Case Studies", href: "/#projects" },
 } as const;
 
 export const FOOTER = {
   tagline:
-    "Full-stack developer & designer based in Lahore. I help startups, brands, and founders ship websites, apps, and automations worldwide.",
+    "Freelance web developer based in Lahore. I help startups, agencies, and founders ship websites, apps, and automations that drive real business results.",
   services: [
-    { label: "Landing Pages", href: "/#services" },
-    { label: "Full Websites", href: "/#services" },
-    { label: "Web Applications", href: "/#services" },
+    { label: "Custom Web Development", href: "/#services" },
+    { label: "SaaS Development", href: "/#services" },
     { label: "E-commerce", href: "/#services" },
-    { label: "Shopify", href: "/#pricing" },
-    { label: "Mobile Apps", href: "/#pricing" },
-    { label: "UI / UX Design", href: "/#services" },
-    { label: "SEO Services", href: "/#services" },
-    { label: "AI Automation", href: "/#services" },
+    { label: "AI Integration", href: "/#services" },
+    { label: "Landing Pages", href: "/#services" },
+    { label: "Website Optimization", href: "/#services" },
+    { label: "Mobile Apps", href: "/#services" },
   ],
   blog: [
     { label: "All articles", href: "/blog" },

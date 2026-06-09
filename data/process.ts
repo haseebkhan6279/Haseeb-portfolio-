@@ -16,7 +16,7 @@ export const PROCESS_STEPS = [
     number: "02",
     title: "Proposal & Scope",
     description:
-      "Within 24 hours, you receive a clear written proposal with scope, fixed price, and timeline. No vague estimates.",
+      "Within 24 hours, you receive a clear written proposal with scope, deliverables, and timeline. No vague estimates.",
   },
   {
     number: "03",

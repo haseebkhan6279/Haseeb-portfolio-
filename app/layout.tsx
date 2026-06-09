@@ -2,6 +2,7 @@ import { DM_Sans } from "next/font/google";
 import AppProviders from "@/components/providers/AppProviders";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
+import PortfolioJsonLd from "@/components/seo/PortfolioJsonLd";
 import { rootMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -26,6 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={dmSans.variable} suppressHydrationWarning>
+      <head>
+        <PortfolioJsonLd />
+      </head>
       <body className="noise-overlay min-h-screen antialiased" suppressHydrationWarning>
         <AppProviders>
           <SiteHeader />

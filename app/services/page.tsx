@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 export const metadata = buildPageMetadata({
   title: "Services",
   description:
-    "Services by Haseeb Gulraiz Khan: landing pages, websites, web apps, e-commerce, Shopify, mobile apps, UI/UX, SEO, and AI automation.",
+    "Freelance web development services: custom websites, SaaS, e-commerce, AI integration, landing pages, optimization, and mobile apps.",
   path: "/services",
 });
 

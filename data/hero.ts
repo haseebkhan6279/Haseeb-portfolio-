@@ -1,39 +1,33 @@
 export const HERO = {
-  line1: "I Craft",
-  line3: "Presences",
-  italicLineIndex: 1,
-  subheading:
-    "I build bespoke websites and landing pages that command attention, build trust, and convert visitors into loyal clients.",
-  ctaPrimary: { label: "View Pricing →", href: "/#pricing" },
-  ctaSecondary: { label: "See My Work", href: "/#projects" },
+  availability: "Available for new projects",
+  headline:
+    "I help businesses build fast, scalable web applications and modern websites that drive growth.",
+  trustLine:
+    "Trusted by startups, agencies, and brands worldwide — 25+ projects shipped with 100% client satisfaction.",
+  ctaPrimary: { label: "Start Your Project →", href: "/#contact" },
+  ctaSecondary: { label: "View Case Studies", href: "/#projects" },
 } as const;
 
-/** Rotating center line + description — Tekvers-style hero scroll */
+/** Rotating value propositions — business outcomes, not tech labels */
 export const HERO_SLIDES = [
   {
-    line2: "Digital",
-    description: HERO.subheading,
+    highlight: "More leads",
+    description:
+      "Conversion-focused landing pages and websites engineered to turn visitors into paying customers — clear messaging, fast load times, and CTAs that work.",
   },
   {
-    line2: "Landing Pages",
+    highlight: "Faster operations",
     description:
-      "Single, focused pages engineered to convert. I obsess over hierarchy, copy structure, and micro-interactions to turn first-time visitors into paying customers.",
+      "Custom dashboards, booking systems, and SaaS tools that replace spreadsheets and manual work — built to scale with your team.",
   },
   {
-    line2: "Web Applications",
+    highlight: "Higher revenue",
     description:
-      "SaaS dashboards, booking systems, and data-driven platforms with authentication, real-time updates, and scalable backend architecture.",
+      "E-commerce stores and booking platforms with smooth checkout, mobile-first UX, and SEO foundations that bring in qualified traffic.",
   },
   {
-    line2: "SEO Services",
+    highlight: "Smarter workflows",
     description:
-      "Technical SEO, on-page optimization, and content structure that help you rank, get discovered, and turn organic traffic into qualified leads.",
+      "AI integrations and automations that handle leads, support, and repetitive tasks — so your team focuses on growth.",
   },
-] as const;
-
-export const HERO_STATS = [
-  { value: "25+", label: "Projects Delivered" },
-  { value: "100%", label: "Client Satisfaction" },
-  { value: "15+", label: "Live Products" },
-  { value: "3+", label: "Years Experience" },
 ] as const;

@@ -56,7 +56,7 @@ export default function SiteHeader() {
             href="/#contact"
             className="hidden !px-4 !py-2.5 !text-xs sm:!inline-flex sm:!px-5 md:!text-sm"
           >
-            Get in Touch
+            Start Your Project
           </MagneticButton>
 
           <button
@@ -118,7 +118,7 @@ export default function SiteHeader() {
                     className="flex min-h-[3rem] items-center justify-center rounded-full bg-sky-400 px-5 text-sm font-semibold text-slate-950 hover:bg-sky-300"
                     onClick={() => setMenuOpen(false)}
                   >
-                    Get in Touch
+                    Start Your Project
                   </Link>
                 </li>
               </ul>

@@ -1,9 +1,57 @@
 "use client";
 
 import { useRef } from "react";
-import { WHY_INTRO, WHY_REASONS, WHY_STATS, WHY_TESTIMONIALS } from "@/data/why";
-import SectionHeading from "@/components/ui/SectionHeading";
+import { WHY_INTRO, WHY_REASONS } from "@/data/why";
 import { useTekversReveal } from "@/hooks/useTekversReveal";
+
+const ICONS = {
+  chat: (
+    <path
+      d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4v8z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinejoin="round"
+    />
+  ),
+  code: (
+    <path
+      d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 5l-2 14"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </>
+  ),
+  mobile: (
+  <>
+    <rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    <path d="M11 18h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M16 16l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </>
+  ),
+  support: (
+    <path
+      d="M12 2a7 7 0 00-4 12.7V20h8v-5.3A7 7 0 0012 2z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinejoin="round"
+    />
+  ),
+} as const;
 
 export default function WhySection() {
   const ref = useRef<HTMLElement>(null);
@@ -16,65 +64,29 @@ export default function WhySection() {
   return (
     <section ref={ref} id="why" className="section-pad border-t border-white/5" aria-labelledby="why-heading">
       <div className="section-shell">
-        <SectionHeading eyebrow={WHY_INTRO.eyebrow} title={WHY_INTRO.title} />
+        <div className="max-w-2xl" data-reveal-header>
+          <p className="eyebrow">{WHY_INTRO.eyebrow}</p>
+          <h2 id="why-heading" className="headline-section mt-4 text-slate-50">
+            {WHY_INTRO.title}
+          </h2>
+          <p className="mt-4 text-[var(--text-lede)] text-slate-400">{WHY_INTRO.subtitle}</p>
+        </div>
 
-        <ul className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {WHY_REASONS.map((r) => (
             <li key={r.title} data-reveal-item>
-              <article className="h-full rounded-2xl border border-white/8 p-6">
-                <h3 className="font-display text-lg text-sky-300">{r.title}</h3>
+              <article className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    {ICONS[r.icon]}
+                  </svg>
+                </div>
+                <h3 className="mt-4 font-display text-lg text-slate-100">{r.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-400">{r.description}</p>
               </article>
             </li>
           ))}
         </ul>
-
-        <div className="mt-16 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4" data-reveal-item>
-          {WHY_STATS.map((s) => (
-            <div key={s.label} className="glass-panel rounded-2xl p-5 text-center">
-              <p className="font-display text-2xl text-sky-300 md:text-3xl">{s.value}</p>
-              <p className="mt-2 text-xs text-slate-500">{s.label}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16" data-reveal-item>
-          <p className="text-xs font-semibold tracking-[0.28em] text-sky-400 uppercase">Client feedback</p>
-          <h3 className="mt-3 text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl">
-            What clients say
-          </h3>
-          <ul className="mt-8 grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2">
-            {WHY_TESTIMONIALS.map((t) => (
-              <li key={t.project ?? t.attribution}>
-                <blockquote className="h-full rounded-2xl border border-white/8 border-l-2 border-l-amber-500/50 bg-white/[0.02] p-6 pl-7">
-                  <p className="text-[0.9375rem] leading-relaxed text-slate-300 italic sm:text-base">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <footer className="mt-4 text-sm text-slate-500">
-                    — {t.attribution}
-                    {t.project ? (
-                      <>
-                        {", "}
-                        {t.url ? (
-                          <a
-                            href={t.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sky-400/90 hover:text-sky-300"
-                          >
-                            {t.project}
-                          </a>
-                        ) : (
-                          <span className="text-slate-400">{t.project}</span>
-                        )}
-                      </>
-                    ) : null}
-                  </footer>
-                </blockquote>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );

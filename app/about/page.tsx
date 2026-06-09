@@ -1,13 +1,13 @@
+import AboutSection from "@/components/sections/AboutSection";
 import { buildPageMetadata } from "@/lib/metadata";
-import { redirect } from "next/navigation";
 
 export const metadata = buildPageMetadata({
   title: "About",
   description:
-    "About Haseeb Gulraiz Khan — full-stack developer & designer building websites, apps, and AI automation with a results-driven process.",
+    "About Haseeb Gulraiz Khan — freelance web developer helping businesses ship websites, SaaS products, and apps that drive measurable growth.",
   path: "/about",
 });
 
 export default function AboutPage() {
-  redirect("/#why");
+  return <AboutSection />;
 }

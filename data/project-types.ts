@@ -1,5 +1,13 @@
 export type ProjectVisual = "phone";
 
+export type ProjectCaseStudy = {
+  client: string;
+  industry: string;
+  problem: string;
+  solution: string;
+  results: string[];
+};
+
 export type Project = {
   name: string;
   tagline: string;
@@ -11,6 +19,7 @@ export type Project = {
   visual?: ProjectVisual;
   mediaFit?: "contain" | "cover";
   highlights: string[];
+  caseStudy?: ProjectCaseStudy;
 };
 
 export type PortfolioIntro = {

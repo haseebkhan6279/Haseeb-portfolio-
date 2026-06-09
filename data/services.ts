@@ -1,80 +1,111 @@
+export type ServiceIcon =
+  | "code"
+  | "saas"
+  | "cart"
+  | "ai"
+  | "landing"
+  | "speed"
+  | "mobile";
+
 export type Service = {
-  number: string;
+  id: string;
   title: string;
   description: string;
-  tags: string[];
+  benefits: string[];
+  icon: ServiceIcon;
 };
 
 export const SERVICES_INTRO = {
-  eyebrow: "What I Do",
-  title: "Skills & Services",
+  eyebrow: "Services",
+  title: "Solutions that solve real business problems",
   subtitle:
-    "Every project starts with understanding your business, audience, and goals — then I design and build the right solution.",
+    "From first landing page to full-scale product — I deliver end-to-end builds focused on growth, performance, and reliability.",
 } as const;
 
 export const SERVICES: Service[] = [
   {
-    number: "01",
+    id: "web-dev",
+    title: "Custom Web Development",
+    icon: "code",
+    description:
+      "Tailored websites and web apps built around your brand, workflow, and growth goals — not templates.",
+    benefits: [
+      "Scalable Next.js architecture",
+      "Admin panels & dashboards",
+      "Third-party API integrations",
+    ],
+  },
+  {
+    id: "saas",
+    title: "SaaS Development",
+    icon: "saas",
+    description:
+      "Multi-tenant platforms with auth, billing, analytics, and role-based access — ready for real users.",
+    benefits: [
+      "User onboarding & subscriptions",
+      "Real-time data & reporting",
+      "Secure, production-grade backend",
+    ],
+  },
+  {
+    id: "ecommerce",
+    title: "E-commerce Development",
+    icon: "cart",
+    description:
+      "Online stores designed to convert — product catalogs, checkout, payments, and inventory management.",
+    benefits: [
+      "Mobile-optimized checkout",
+      "Payment gateway integration",
+      "Order & catalog management",
+    ],
+  },
+  {
+    id: "ai",
+    title: "AI Integration",
+    icon: "ai",
+    description:
+      "Intelligent chatbots, lead handlers, and workflow automations that reduce manual work and response times.",
+    benefits: [
+      "Custom AI assistants",
+      "CRM & tool integrations",
+      "Automated lead qualification",
+    ],
+  },
+  {
+    id: "landing",
     title: "Landing Pages",
+    icon: "landing",
     description:
-      "A single, focused page engineered to convert. I obsess over hierarchy, copy structure, and micro-interactions to turn first-time visitors into paying customers.",
-    tags: ["Next.js", "Framer Motion", "Tailwind"],
+      "Single-page experiences built to capture leads and drive sign-ups — fast, focused, and conversion-tested.",
+    benefits: [
+      "Copy-driven layout & hierarchy",
+      "A/B-ready structure",
+      "Sub-2s load performance",
+    ],
   },
   {
-    number: "02",
-    title: "Multi-Page Websites",
+    id: "optimization",
+    title: "Website Optimization",
+    icon: "speed",
     description:
-      "Complete brand presences — Home, About, Services, Blog, Contact and beyond. Built for SEO, speed, and the kind of first impression your brand deserves.",
-    tags: ["Next.js", "CMS", "TypeScript"],
+      "Speed, SEO, and UX audits with hands-on fixes — so your existing site ranks higher and converts better.",
+    benefits: [
+      "Core Web Vitals improvements",
+      "Technical SEO fixes",
+      "Conversion rate enhancements",
+    ],
   },
   {
-    number: "03",
-    title: "Web Applications",
+    id: "mobile",
+    title: "Mobile App Development",
+    icon: "mobile",
     description:
-      "SaaS dashboards, booking systems, and data-driven platforms with authentication, real-time updates, and scalable backend architecture.",
-    tags: ["Node.js", "PostgreSQL", "REST API"],
-  },
-  {
-    number: "04",
-    title: "E-commerce Stores",
-    description:
-      "Custom online stores built for high conversion — seamless checkout flows, product management, payment gateways, and beautiful product pages.",
-    tags: ["Stripe", "Next.js", "PostgreSQL"],
-  },
-  {
-    number: "05",
-    title: "Mobile Applications",
-    description:
-      "Cross-platform iOS and Android apps in React Native. I've shipped production apps with real-time features, maps, push notifications, and clean UI.",
-    tags: ["React Native", "Expo", "Firebase"],
-  },
-  {
-    number: "06",
-    title: "UI / UX Design",
-    description:
-      "Design-first approach. I wireframe, prototype, and validate in Figma before writing a single line of code — ensuring the experience is right before the build begins.",
-    tags: ["Figma", "Prototyping", "Design System"],
-  },
-  {
-    number: "07",
-    title: "SEO Services",
-    description:
-      "Technical SEO, on-page optimization, and content structure that help you rank, get discovered, and turn organic traffic into qualified leads.",
-    tags: ["Technical SEO", "Google Search Console", "Analytics"],
-  },
-  {
-    number: "08",
-    title: "AI Automation",
-    description:
-      "AI agents, workflow automation, and intelligent integrations that cut manual work — from chatbots and lead handling to custom pipelines connected to your existing tools.",
-    tags: ["OpenAI", "LangChain", "n8n", "API Integrations"],
-  },
-  {
-    number: "09",
-    title: "Shopify Stores",
-    description:
-      "Shopify setup, custom themes, and store optimization — product catalogs, checkout, apps, and conversion-focused layouts for brands that want to launch and scale on a proven e-commerce platform.",
-    tags: ["Shopify", "Liquid", "Shopify Payments"],
+      "Cross-platform iOS and Android apps with real-time features, push notifications, and polished native feel.",
+    benefits: [
+      "React Native delivery",
+      "App Store ready builds",
+      "Backend & API integration",
+    ],
   },
 ];
 
