@@ -28,10 +28,10 @@ export default function SiteHeader() {
       animate={{ y: 0, opacity: 1 }}
       className="site-header fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[var(--glass)] backdrop-blur-xl"
     >
-      <div className="section-shell flex h-[4.5rem] items-center justify-between gap-2 sm:gap-3">
+      <div className="section-shell flex h-[4.5rem] min-w-0 items-center justify-between gap-2 sm:gap-3">
         <Link
           href="/"
-          className="font-brand min-w-0 shrink text-sm text-slate-100 sm:text-[0.9375rem]"
+          className="font-brand min-w-0 shrink truncate text-sm text-slate-100 sm:text-[0.9375rem]"
           onClick={() => setMenuOpen(false)}
         >
           <span className="sm:hidden">{PROFILE.shortName}</span>
@@ -54,7 +54,7 @@ export default function SiteHeader() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <MagneticButton
             href="/#contact"
-            className="hidden !px-4 !py-2.5 !text-xs sm:!inline-flex sm:!px-5 md:!text-sm"
+            className="hidden !px-4 !py-2.5 !text-xs md:!inline-flex md:!px-5 md:!text-sm"
           >
             Start Your Project
           </MagneticButton>
