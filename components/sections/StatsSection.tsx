@@ -18,12 +18,15 @@ function StatCard({
 }) {
   const count = useCountUp(value, 1800, active);
   return (
-    <div className="trust-stat glass-panel rounded-2xl p-6 text-center">
-      <p className="font-display text-3xl text-sky-300 md:text-4xl">
+    <div className="trust-stat group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/55 p-5 text-center shadow-[0_10px_30px_rgba(2,6,23,0.35)] backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/40 hover:bg-slate-900/70 hover:shadow-[0_18px_36px_rgba(14,165,233,0.18)] md:p-6">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-300/70 to-transparent opacity-70" />
+      <p className="font-display text-3xl font-semibold tracking-tight text-sky-300 md:text-4xl">
         {count}
         {suffix ?? ""}
       </p>
-      <p className="mt-2 text-sm text-slate-500">{label}</p>
+      <p className="mt-2 text-xs uppercase tracking-[0.14em] text-slate-300/85 md:text-[0.8rem]">
+        {label}
+      </p>
     </div>
   );
 }

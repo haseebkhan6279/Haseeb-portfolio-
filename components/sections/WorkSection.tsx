@@ -82,6 +82,8 @@ function CaseStudyBody({ project }: { project: Project }) {
 
 export default function WorkSection() {
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [isTouchLayout, setIsTouchLayout] = useState(false);
+  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
   const sectionRef = useRef<HTMLElement>(null);
   const firstRevealedItemRef = useRef<HTMLLIElement>(null);
 
@@ -107,6 +109,22 @@ export default function WorkSection() {
     });
     return () => window.cancelAnimationFrame(id);
   }, [showAllProjects, hasMoreProjects]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(hover: none), (max-width: 1023px)");
+    const syncTouchLayout = () => setIsTouchLayout(media.matches);
+    syncTouchLayout();
+    media.addEventListener("change", syncTouchLayout);
+    return () => media.removeEventListener("change", syncTouchLayout);
+  }, []);
+
+  const toggleCardFlip = (projectName: string) => {
+    if (!isTouchLayout) return;
+    setFlippedCards((prev) => ({
+      ...prev,
+      [projectName]: !prev[projectName],
+    }));
+  };
 
   return (
     <section
@@ -134,49 +152,82 @@ export default function WorkSection() {
                   : undefined
               }
             >
-              <article className="portfolio-work__card portfolio-work__card--case">
-                <ProjectMedia project={project} />
-
-                <div className="portfolio-work__body">
-                  <div className="portfolio-work__card-head">
-                    <h3 className="portfolio-work__card-title">{project.name}</h3>
-                    <p className="portfolio-work__card-tagline">{project.tagline}</p>
+              <article
+                className={`portfolio-work__card portfolio-work__card--case ${
+                  flippedCards[project.name] ? "is-flipped" : ""
+                }`}
+                onClick={(event) => {
+                  if (!isTouchLayout) return;
+                  const target = event.target as HTMLElement;
+                  if (target.closest("a, button")) return;
+                  toggleCardFlip(project.name);
+                }}
+                onKeyDown={(event) => {
+                  if (!isTouchLayout) return;
+                  if (event.key !== "Enter" && event.key !== " ") return;
+                  event.preventDefault();
+                  toggleCardFlip(project.name);
+                }}
+                tabIndex={isTouchLayout ? 0 : -1}
+                aria-label={`${project.name} project card`}
+              >
+                <div className="portfolio-work__card-inner">
+                  <div className="portfolio-work__card-face portfolio-work__card-face--front">
+                    <ProjectMedia project={project} />
+                    <div className="portfolio-work__card-front-meta">
+                      <h3 className="portfolio-work__card-title">{project.name}</h3>
+                      <p className="portfolio-work__card-tagline">{project.tagline}</p>
+                      {isTouchLayout ? (
+                        <span className="portfolio-work__flip-hint">Tap to view details</span>
+                      ) : (
+                        <span className="portfolio-work__flip-hint">Hover to view details</span>
+                      )}
+                    </div>
                   </div>
 
-                  <CaseStudyBody project={project} />
+                  <div className="portfolio-work__card-face portfolio-work__card-face--back">
+                    <div className="portfolio-work__body">
+                      <div className="portfolio-work__card-head">
+                        <h3 className="portfolio-work__card-title">{project.name}</h3>
+                        <p className="portfolio-work__card-tagline">{project.tagline}</p>
+                      </div>
 
-                  {project.stack.length > 0 ? (
-                    <ul className="portfolio-work__stack" aria-label="Technologies used">
-                      {project.stack.map((tech) => (
-                        <li key={tech}>{tech}</li>
-                      ))}
-                    </ul>
-                  ) : null}
+                      <CaseStudyBody project={project} />
 
-                  <div className="portfolio-work__card-actions">
-                    {project.url ? (
-                      <a
-                        href={project.url}
-                        className="portfolio-work__action portfolio-work__action--primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Live Demo →
-                      </a>
-                    ) : null}
-                    {project.github ? (
-                      <a
-                        href={project.github}
-                        className="portfolio-work__action"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        GitHub
-                      </a>
-                    ) : null}
-                    {project.url ? (
-                      <span className="portfolio-work__card-url">{formatProjectUrl(project.url)}</span>
-                    ) : null}
+                      {project.stack.length > 0 ? (
+                        <ul className="portfolio-work__stack" aria-label="Technologies used">
+                          {project.stack.map((tech) => (
+                            <li key={tech}>{tech}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+
+                      <div className="portfolio-work__card-actions">
+                        {project.url ? (
+                          <a
+                            href={project.url}
+                            className="portfolio-work__action portfolio-work__action--primary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Live Demo →
+                          </a>
+                        ) : null}
+                        {project.github ? (
+                          <a
+                            href={project.github}
+                            className="portfolio-work__action"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            GitHub
+                          </a>
+                        ) : null}
+                        {project.url ? (
+                          <span className="portfolio-work__card-url">{formatProjectUrl(project.url)}</span>
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </article>

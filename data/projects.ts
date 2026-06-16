@@ -40,12 +40,40 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    name: "GT Estate",
+    tagline: "Real estate investment platform",
+    description:
+      "Corporate real estate platform for residential and commercial plot investments with trust-focused messaging and conversion funnels.",
+    url: "https://gtestates.com.pk/",
+    image: "/images/projects/gt-estate-20260616-1456.png",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    highlights: [
+      "Premium real estate brand presence for Pakistan-based plot investments",
+      "Project showcases, testimonials, and contact-driven lead capture",
+      "Scroll-focused homepage with strong value proposition messaging",
+      "Professional service pages for trust and long-term client relationships",
+    ],
+    caseStudy: {
+      client: "GT Estate",
+      industry: "Real Estate",
+      problem:
+        "Needed a premium digital presence to build investor trust and present residential and commercial opportunities clearly.",
+      solution:
+        "Delivered a polished, conversion-focused real estate site with project highlights, social proof, and clear inquiry pathways.",
+      results: [
+        "Stronger online brand credibility",
+        "Clearer project and service communication",
+        "Improved lead capture experience",
+      ],
+    },
+  },
+  {
     name: "Vellay.pro",
     tagline: "SaaS for sports venue owners",
     description:
       "Owner dashboard for venue bookings, user management, and revenue insights across courts and facilities.",
     url: "https://vellay.pro",
-    image: "/images/projects/vellay-pro.png",
+    image: "/images/projects/vellay-pro-20260616-1457.png",
     mediaFit: "contain",
     stack: ["Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
     highlights: [
