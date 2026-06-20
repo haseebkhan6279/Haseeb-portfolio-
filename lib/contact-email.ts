@@ -14,8 +14,18 @@ function getRecipientEmail() {
   return process.env.CONTACT_TO_EMAIL ?? CONTACT.email;
 }
 
+function getVerifiedFromEmail() {
+  return process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+}
+
+/** Show the visitor's email in the From name; the address must stay a verified sender. */
+function buildSenderFrom({ email }: ContactSubmission, verifiedFrom = getVerifiedFromEmail()) {
+  const safeEmail = email.replace(/[<>"\r\n]/g, "");
+  return `${safeEmail} <${verifiedFrom}>`;
+}
+
 function buildEmailContent({ email, serviceInterest, message }: ContactSubmission) {
-  const subject = `Portfolio inquiry — ${serviceInterest}`;
+  const subject = `Portfolio inquiry from ${email} — ${serviceInterest}`;
   const details = message || "(No additional message)";
 
   const text = [
@@ -58,7 +68,7 @@ async function sendViaResend(
 
   const resend = new Resend(apiKey);
   const to = getRecipientEmail();
-  const from = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+  const from = buildSenderFrom(submission);
 
   const { data, error } = await resend.emails.send({
     from,
@@ -94,7 +104,8 @@ async function sendViaSmtp(
   const port = Number(process.env.SMTP_PORT ?? "465");
   const secure = process.env.SMTP_SECURE !== "false";
   const to = getRecipientEmail();
-  const from = process.env.SMTP_FROM ?? user;
+  const verifiedFrom = process.env.SMTP_FROM ?? user;
+  const from = buildSenderFrom(submission, verifiedFrom);
 
   const transporter = nodemailer.createTransport({
     host,

@@ -160,11 +160,7 @@ export default function ContactSection() {
           <div className="glass-panel rounded-2xl p-5 sm:p-8" data-contact-reveal>
             {status === "success" ? (
               <p className="text-slate-300">
-                Thanks — I&apos;ll reply within {CONTACT.responseTime} at{" "}
-                <a href={`mailto:${CONTACT.email}`} className="text-sky-300">
-                  {CONTACT.email}
-                </a>
-                .
+                Thanks — I&apos;ll reply to your email within {CONTACT.responseTime}.
               </p>
             ) : (
               <form className="space-y-5" onSubmit={handleSubmit} noValidate>
