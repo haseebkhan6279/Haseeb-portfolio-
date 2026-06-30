@@ -8,6 +8,7 @@ import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -22,16 +23,35 @@ export default function SiteHeader() {
     return () => window.removeEventListener("hashchange", close);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 36);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="site-header fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[var(--glass)] backdrop-blur-xl"
+      className={`site-header fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-transparent border-transparent shadow-none"
+          : "border-b border-[color-mix(in_srgb,var(--line)_75%,transparent)] bg-[color-mix(in_srgb,var(--bg-surface)_74%,white)] backdrop-blur-md shadow-[0_8px_20px_rgba(120,74,45,0.08)]"
+      }`}
     >
-      <div className="section-shell flex h-[4.5rem] min-w-0 items-center justify-between gap-2 sm:gap-3">
+      <div
+        className={`section-shell flex h-[4.5rem] min-w-0 items-center justify-between gap-2 transition-all duration-300 sm:gap-3 ${
+          isScrolled
+            ? "mt-1.5 max-w-[min(96vw,1120px)] rounded-full border border-[color-mix(in_srgb,var(--line)_85%,transparent)] bg-[color-mix(in_srgb,var(--bg-surface)_68%,white)] px-6 text-[var(--fg)] shadow-[0_10px_24px_rgba(120,74,45,0.1)] backdrop-blur-md md:justify-center md:gap-10"
+            : ""
+        }`}
+      >
         <Link
           href="/"
-          className="font-brand min-w-0 shrink truncate text-sm text-slate-100 sm:text-[0.9375rem]"
+          className={`font-brand min-w-0 shrink truncate text-sm transition-colors sm:text-[0.9375rem] ${
+            isScrolled ? "text-[var(--fg)] md:opacity-80" : "text-[var(--fg)]"
+          }`}
           onClick={() => setMenuOpen(false)}
         >
           <span className="sm:hidden">{PROFILE.shortName}</span>
@@ -44,7 +64,7 @@ export default function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-slate-400 transition-colors hover:text-sky-300"
+              className={`text-sm transition-colors ${isScrolled ? "text-slate-300 hover:text-[var(--accent)]" : "text-slate-400 hover:text-sky-300"}`}
             >
               {item.label}
             </Link>
@@ -54,7 +74,11 @@ export default function SiteHeader() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <MagneticButton
             href="/#contact"
-            className="hidden !px-4 !py-2.5 !text-xs md:!inline-flex md:!px-5 md:!text-sm"
+            className={`hidden !text-xs md:!inline-flex md:!text-sm ${
+              isScrolled
+                ? "!rounded-full !bg-[var(--accent)] !px-6 !py-2.5 !text-white hover:!bg-[var(--accent-strong)]"
+                : "!px-4 !py-2.5 md:!px-5"
+            }`}
           >
             Start Your Project
           </MagneticButton>

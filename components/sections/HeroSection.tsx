@@ -1,76 +1,66 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { HERO, HERO_SLIDES } from "@/data/hero";
+import { useState, type SyntheticEvent } from "react";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { HERO } from "@/data/hero";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-export default function HeroSection() {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const reduced = useReducedMotion();
-  const slide = HERO_SLIDES[slideIndex];
-  const heroBadges = ["Fast Delivery", "Mobile-First UX", "SEO Ready"];
+const VIDEO_PHASES = [
+  { title: "Concept", text: "We map your offer into a clear, premium story that instantly builds trust." },
+  { title: "Design", text: "Visual direction evolves frame-by-frame into modern layouts with elegant motion." },
+  { title: "Build", text: "Fast frontend + robust backend engineering keeps performance and scale in balance." },
+  { title: "Launch", text: "SEO, analytics, and conversion tuning turn traffic into measurable business growth." },
+] as const;
 
-  useEffect(() => {
-    if (reduced) return;
-    const id = window.setInterval(() => {
-      setSlideIndex((i) => (i + 1) % HERO_SLIDES.length);
-    }, 5000);
-    return () => window.clearInterval(id);
-  }, [reduced]);
+export default function HeroSection() {
+  const reduced = useReducedMotion();
+  const [phaseIndex, setPhaseIndex] = useState(0);
+
+  const handleVideoTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget;
+    if (!video.duration || reduced) return;
+    const ratio = video.currentTime / video.duration;
+    const next = Math.min(VIDEO_PHASES.length - 1, Math.floor(ratio * VIDEO_PHASES.length));
+    setPhaseIndex((current) => (current === next ? current : next));
+  };
 
   return (
     <section
       className={`relative flex min-h-[100svh] flex-col overflow-hidden pt-[4.5rem]${!reduced ? " hero-entrance" : ""}`}
       aria-label="Hero"
     >
-      <div className="hero-surface-glow" aria-hidden />
-      <div className="hero-surface-grid" aria-hidden />
-
-      <div className="section-shell relative flex min-h-0 w-full min-w-0 flex-1 flex-col">
-        <div className="flex w-full min-w-0 flex-1 flex-col justify-center py-8 sm:py-10 md:py-14 lg:py-20">
-          <div className="hero-shell">
-            <div className="hero-line--outer-left hero-status-pill">
-              <span className="hero-status-dot shrink-0" aria-hidden />
-              <span className="min-w-0">{HERO.availability}</span>
-            </div>
-
-            <h1 className="hero-line--center max-w-4xl text-pretty text-[clamp(1.65rem,7.5vw,3.4rem)] font-bold leading-[1.12] tracking-tight text-slate-50 sm:text-[clamp(1.95rem,5.5vw,3.4rem)] sm:leading-[1.06]">
-              {HERO.headline}
-            </h1>
-
-            <div className="hero-badge-row" aria-label="Core delivery strengths">
-              {heroBadges.map((badge) => (
-                <span key={badge} className="hero-badge-chip">
-                  {badge}
-                </span>
-              ))}
-            </div>
-
-            <div className="hero-description mt-5 max-w-2xl sm:mt-7">
-              <p className="text-sm font-semibold uppercase tracking-[0.1em] text-sky-300/90 sm:text-base sm:tracking-[0.14em] md:text-lg">
-                Drive <span className="text-sky-200">{slide.highlight}</span>
-              </p>
-              <p
-                key={slideIndex}
-                className="mt-3 text-[var(--text-lede)] leading-relaxed text-slate-300 motion-safe:animate-[fadeIn_0.5s_ease-out]"
-              >
-                {slide.description}
-              </p>
-            </div>
-
-            <p className="hero-line--outer-right mt-5 max-w-2xl text-pretty text-sm leading-relaxed text-slate-400/95 sm:mt-6">
-              {HERO.trustLine}
-            </p>
-
-            <div className="mt-8 flex w-full min-w-0 flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-              <MagneticButton href={HERO.ctaPrimary.href} className="!w-full sm:!w-auto">
-                {HERO.ctaPrimary.label}
-              </MagneticButton>
-              <MagneticButton href={HERO.ctaSecondary.href} variant="ghost" className="!w-full sm:!w-auto">
-                {HERO.ctaSecondary.label}
-              </MagneticButton>
-            </div>
+      <div className="hero-video-bg" aria-hidden>
+        <video
+          className="hero-video-bg__media"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onTimeUpdate={handleVideoTimeUpdate}
+        >
+          <source src="/images/A_stunning_3D_particle_animation_202606301335.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div className="hero-video-vignette" aria-hidden />
+      <div className="section-shell relative z-[2] flex min-h-0 w-full min-w-0 flex-1 items-end pb-8 sm:pb-10 md:pb-14">
+        <div className="hero-overlay-card max-w-xl">
+          <p className="hero-overlay-kicker">Digital Studio · Lahore</p>
+          <h1 className="hero-overlay-title">Premium web experiences that turn attention into revenue.</h1>
+          <p className="hero-overlay-copy">
+            I design and develop elegant, high-performance websites for modern brands - combining visual polish,
+            fast delivery, and conversion-focused UX.
+          </p>
+          <div key={phaseIndex} className="hero-phase-card" aria-live="polite">
+            <p className="hero-phase-label">Live Sequence · {VIDEO_PHASES[phaseIndex].title}</p>
+            <p className="hero-phase-text">{VIDEO_PHASES[phaseIndex].text}</p>
+          </div>
+          <p className="hero-overlay-meta">{HERO.availability}</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <MagneticButton href={HERO.ctaPrimary.href}>{HERO.ctaPrimary.label}</MagneticButton>
+            <MagneticButton href={HERO.ctaSecondary.href} variant="ghost">
+              {HERO.ctaSecondary.label}
+            </MagneticButton>
           </div>
         </div>
       </div>
