@@ -13,25 +13,24 @@ export const SITE_URL = getSiteUrl();
 
 export const SEO = {
   siteName: PROFILE.name,
-  defaultTitle: `${PROFILE.displayName} — Freelance Web Developer for Growing Businesses`,
+  defaultTitle: `${PROFILE.displayName} — Websites and apps for businesses`,
   titleTemplate: `%s | ${PROFILE.displayName}`,
   description:
-    "Hire Haseeb Gulraiz Khan — freelance web developer helping businesses build fast websites, SaaS products, e-commerce stores, and AI integrations. 25+ projects shipped. Free consultation within 24 hours.",
+    "Haseeb Khan designs and builds live websites, online shops, booking systems, dashboards and mobile apps for clients in Pakistan, the UK and the US. Open to freelance projects and remote roles.",
   keywords: [
-    "freelance web developer",
-    "hire web developer",
-    "freelance web developer Pakistan",
-    "custom web development",
-    "SaaS developer",
+    "full-stack developer",
+    "Next.js developer",
+    "TypeScript developer",
+    "NestJS developer",
+    "React Native developer",
+    "remote full-stack developer",
+    "SaaS dashboard developer",
+    "booking platform developer",
     "e-commerce developer",
-    "landing page developer",
-    "Next.js freelancer",
-    "mobile app developer",
-    "AI integration developer",
+    "full-stack developer Pakistan",
+    "Lahore web developer",
     "Haseeb Gulraiz Khan",
-    "Lahore freelance developer",
-    "website optimization",
-    "conversion-focused web design",
+    "Haseeb Khan developer",
   ],
   author: PROFILE.name,
   locale: "en_US",
@@ -42,15 +41,18 @@ type PageMetaInput = {
   title: string;
   description: string;
   path: string;
+  /** Optional Open Graph image path (e.g. a project screenshot). */
+  image?: string;
 };
 
 function absoluteUrl(path: string): string {
   return path.startsWith("http") ? path : `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-export function buildPageMetadata({ title, description, path }: PageMetaInput): Metadata {
+export function buildPageMetadata({ title, description, path, image }: PageMetaInput): Metadata {
   const canonical = absoluteUrl(path);
   const fullTitle = `${title} | ${SEO.siteName}`;
+  const images = image ? [{ url: absoluteUrl(image) }] : undefined;
 
   return {
     title,
@@ -63,11 +65,13 @@ export function buildPageMetadata({ title, description, path }: PageMetaInput): 
       siteName: SEO.siteName,
       title: fullTitle,
       description,
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      images,
     },
   };
 }

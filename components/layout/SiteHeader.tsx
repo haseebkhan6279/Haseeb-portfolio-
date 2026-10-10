@@ -1,155 +1,167 @@
 "use client";
 
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { ArrowUpRight, Search } from "lucide-react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { NAV_LINKS, PROFILE } from "@/data/site";
-import MagneticButton from "@/components/ui/MagneticButton";
+import { CONTACT, NAV_LINKS, PROFILE, SOCIALS } from "@/data/site";
+import { openCommandPalette } from "@/components/ui/CommandPalette";
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function SiteHeader() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setHidden(y > prev && y > 500 && !open);
+    setScrolled(y > 24);
+  });
 
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
+    setOpen(false);
+  }
   useEffect(() => {
-    const close = () => setMenuOpen(false);
-    window.addEventListener("hashchange", close);
-    return () => window.removeEventListener("hashchange", close);
-  }, []);
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 36);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const isActive = (href: string) => !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`));
+  const solid = scrolled || open;
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className={`site-header fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-transparent border-transparent shadow-none"
-          : "border-b border-[color-mix(in_srgb,var(--line)_75%,transparent)] bg-[color-mix(in_srgb,var(--bg-surface)_74%,white)] backdrop-blur-md shadow-[0_8px_20px_rgba(120,74,45,0.08)]"
-      }`}
-    >
-      <div
-        className={`section-shell flex h-[4.5rem] min-w-0 items-center justify-between gap-2 transition-all duration-300 sm:gap-3 ${
-          isScrolled
-            ? "mt-1.5 max-w-[min(96vw,1120px)] rounded-full border border-[color-mix(in_srgb,var(--line)_85%,transparent)] bg-[color-mix(in_srgb,var(--bg-surface)_68%,white)] px-6 text-[var(--fg)] shadow-[0_10px_24px_rgba(120,74,45,0.1)] backdrop-blur-md md:justify-center md:gap-10"
-            : ""
-        }`}
+    <>
+      <motion.header
+        className="fixed inset-x-0 top-0 z-[80]"
+        animate={{ y: hidden ? "-110%" : "0%" }}
+        transition={{ duration: 0.45, ease }}
       >
-        <Link
-          href="/"
-          className={`font-brand min-w-0 shrink truncate text-sm transition-colors sm:text-[0.9375rem] ${
-            isScrolled ? "text-[var(--fg)] md:opacity-80" : "text-[var(--fg)]"
+        <div
+          className={`border-b pt-[env(safe-area-inset-top)] transition-[background-color,border-color,backdrop-filter] duration-500 ${
+            solid ? "border-line bg-bg/85 backdrop-blur-xl" : "border-transparent bg-transparent"
           }`}
-          onClick={() => setMenuOpen(false)}
         >
-          <span className="sm:hidden">{PROFILE.shortName}</span>
-          <span className="hidden sm:inline lg:hidden">{PROFILE.displayName}</span>
-          <span className="hidden lg:inline">{PROFILE.name}</span>
-        </Link>
-
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {NAV_LINKS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-sm transition-colors ${isScrolled ? "text-slate-300 hover:text-[var(--accent)]" : "text-slate-400 hover:text-sky-300"}`}
-            >
-              {item.label}
+          <div className="shell flex h-16 items-center gap-4 sm:h-[4.5rem]">
+            <Link href="/" className="group flex min-w-0 items-center gap-3" aria-label={`${PROFILE.displayName} — home`}>
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-fg text-[13px] font-semibold tracking-tight text-bg transition-transform duration-500 group-hover:rotate-[-6deg]">
+                HK
+              </span>
+              <span className="min-w-0 leading-tight">
+                <span className="block truncate text-[15px] font-semibold tracking-tight">{PROFILE.displayName}</span>
+                <span className="block truncate text-xs text-muted">{PROFILE.role}</span>
+              </span>
             </Link>
-          ))}
-        </nav>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <MagneticButton
-            href="/#contact"
-            className={`hidden !text-xs md:!inline-flex md:!text-sm ${
-              isScrolled
-                ? "!rounded-full !bg-[var(--accent)] !px-6 !py-2.5 !text-white hover:!bg-[var(--accent-strong)]"
-                : "!px-4 !py-2.5 md:!px-5"
-            }`}
-          >
-            Start Your Project
-          </MagneticButton>
+            <nav className="mx-auto hidden items-center gap-1 lg:flex" aria-label="Primary">
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                    isActive(l.href) ? "text-fg" : "text-fg-2 hover:bg-surface-2 hover:text-fg"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
 
-          <button
-            type="button"
-            className="site-header__menu-btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-slate-200 md:hidden"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-nav"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((o) => !o)}
-          >
-            <span className="sr-only">{menuOpen ? "Close" : "Menu"}</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
-              {menuOpen ? (
-                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-              ) : (
-                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-              )}
-            </svg>
-          </button>
+            <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
+              <button
+                type="button"
+                onClick={openCommandPalette}
+                className="hidden h-10 items-center gap-2 rounded-full border border-line bg-surface px-3.5 text-[13px] text-muted transition-colors hover:border-line-strong hover:text-fg lg:inline-flex"
+                aria-label="Search projects and pages"
+              >
+                <Search size={14} />
+                <kbd className="font-mono text-[11px]">Ctrl K</kbd>
+              </button>
+              <Link href="/contact" className="btn btn-dark hidden h-10 px-5 text-[13.5px] sm:inline-flex">
+                Hire me <ArrowUpRight size={15} />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setOpen((o) => !o)}
+                className="relative z-20 grid h-10 w-10 place-items-center rounded-full border border-line-strong bg-surface text-fg lg:hidden"
+                aria-expanded={open}
+                aria-label={open ? "Close menu" : "Open menu"}
+              >
+                <span className="relative block h-3 w-4">
+                  <span className={`absolute left-0 h-[1.5px] w-4 rounded bg-current transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+                  <span className={`absolute left-0 h-[1.5px] w-4 rounded bg-current transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </motion.header>
 
       <AnimatePresence>
-        {menuOpen ? (
-          <>
-            <motion.button
-              type="button"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 top-[4.5rem] z-40 bg-slate-950/80 backdrop-blur-sm md:hidden"
-              aria-label="Close menu"
-              onClick={() => setMenuOpen(false)}
-            />
-            <motion.nav
-              id="mobile-nav"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="site-header__mobile-nav absolute inset-x-0 top-full z-50 border-b border-white/10 bg-[var(--bg-surface)] px-4 py-5 shadow-2xl md:hidden"
-              aria-label="Mobile"
-            >
-              <ul className="flex flex-col gap-1">
-                {NAV_LINKS.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="block rounded-xl px-4 py-3.5 text-base font-medium text-slate-200 transition-colors hover:bg-white/5 hover:text-sky-300"
-                      onClick={() => setMenuOpen(false)}
+        {open ? (
+          <motion.div
+            className="fixed inset-0 z-[70] flex flex-col overflow-hidden bg-bg lg:hidden"
+            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            data-lenis-prevent
+          >
+            <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-4 pt-24 sm:px-8" aria-label="Mobile">
+              {[{ label: "Home", href: "/" }, ...NAV_LINKS, { label: "All projects", href: "/work" }, { label: "Contact", href: "/contact" }].map(
+                (l, i) => (
+                  <div key={l.href} className="overflow-hidden border-b border-line">
+                    <motion.div
+                      initial={{ y: "100%" }}
+                      animate={{ y: "0%" }}
+                      transition={{ delay: 0.2 + i * 0.045, duration: 0.6, ease }}
                     >
-                      {item.label}
-                    </Link>
-                  </li>
+                      <Link
+                        href={l.href}
+                        onClick={() => setOpen(false)}
+                        className="flex items-center justify-between gap-3 py-4"
+                      >
+                        <span className="font-display text-[1.85rem] leading-none sm:text-4xl">{l.label}</span>
+                        <span className="shrink-0 font-mono text-[11px] text-muted">0{i + 1}</span>
+                      </Link>
+                    </motion.div>
+                  </div>
+                ),
+              )}
+            </nav>
+            <motion.div
+              className="shrink-0 space-y-4 border-t border-line px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 sm:px-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.5 }}
+            >
+              <Link href="/contact" className="btn btn-primary w-full" onClick={() => setOpen(false)}>
+                Start a project <ArrowUpRight size={16} />
+              </Link>
+              <div className="flex items-center justify-between gap-3 text-sm">
+                <a href={`mailto:${CONTACT.email}`} className="min-w-0 truncate text-fg-2">
+                  {CONTACT.email}
+                </a>
+                <span className="flex shrink-0 items-center gap-2 text-xs text-muted">
+                  <span className="status-dot" /> Available
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-fg-2">
+                {SOCIALS.slice(0, 3).map((s) => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-fg">
+                    {s.label}
+                  </a>
                 ))}
-                <li className="mt-2 border-t border-white/10 pt-3">
-                  <Link
-                    href="/#contact"
-                    className="flex min-h-[3rem] items-center justify-center rounded-full bg-sky-400 px-5 text-sm font-semibold text-slate-950 hover:bg-sky-300"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Start Your Project
-                  </Link>
-                </li>
-              </ul>
-            </motion.nav>
-          </>
+              </div>
+            </motion.div>
+          </motion.div>
         ) : null}
       </AnimatePresence>
-    </motion.header>
+    </>
   );
 }

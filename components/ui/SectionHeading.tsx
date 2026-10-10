@@ -1,36 +1,47 @@
-import type { ReactNode } from "react";
-
-type Props = {
-  eyebrow: string;
-  title: ReactNode;
-  lede?: ReactNode;
-  align?: "left" | "center";
-};
+import { SplitReveal } from "@/components/ui/Reveal";
 
 export default function SectionHeading({
-  eyebrow,
+  index,
+  name,
   title,
-  lede,
-  align = "left",
-}: Props) {
-  const alignClass = align === "center" ? "text-center mx-auto" : "";
-
+  accent,
+  after,
+  children,
+  className = "",
+}: {
+  index?: string;
+  name: string;
+  command?: string;
+  title: string;
+  /** Words rendered in the italic serif accent, after `title`. */
+  accent?: string;
+  /** Plain words after the accent. */
+  after?: string;
+  children?: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <header className={`max-w-3xl ${alignClass}`}>
-      <p className="eyebrow" data-reveal-header>
-        {eyebrow}
-      </p>
-      <h2 className="headline-section mt-4 text-slate-50" data-reveal-header>
-        {title}
-      </h2>
-      {lede ? (
-        <p
-          className="mt-5 max-w-2xl text-[var(--text-lede)] leading-relaxed text-slate-400"
-          data-reveal-header
-        >
-          {lede}
+    <div className={`mb-12 grid gap-6 sm:mb-16 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-12 ${className}`}>
+      <div>
+        <p className="kicker">
+          {index ? <span className="text-fg">{index}</span> : null}
+          {index ? <span aria-hidden>/</span> : null}
+          {name}
         </p>
+        <SplitReveal as="h2" className="h-section mt-5 max-w-[18ch]">
+          {title}
+          {accent ? (
+            <>
+              {" "}
+              <span className="serif-i text-accent">{accent}</span>
+            </>
+          ) : null}
+          {after ? <> {after}</> : null}
+        </SplitReveal>
+      </div>
+      {children ? (
+        <div className="max-w-md text-[1.05rem] leading-relaxed text-fg-2 lg:justify-self-end">{children}</div>
       ) : null}
-    </header>
+    </div>
   );
 }

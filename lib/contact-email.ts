@@ -31,10 +31,10 @@ function buildEmailContent({ email, serviceInterest, message }: ContactSubmissio
   const text = [
     "New message from your portfolio contact form",
     "",
-    `Service interest: ${serviceInterest}`,
+    `Topic: ${serviceInterest}`,
     `Sender email: ${email}`,
     "",
-    "Project details:",
+    "Details:",
     details,
     "",
     `Reply directly to: ${email}`,
@@ -42,9 +42,9 @@ function buildEmailContent({ email, serviceInterest, message }: ContactSubmissio
 
   const html = `
     <h2>New portfolio inquiry</h2>
-    <p><strong>Service interest:</strong> ${escapeHtml(serviceInterest)}</p>
+    <p><strong>Topic:</strong> ${escapeHtml(serviceInterest)}</p>
     <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
-    <h3>Project details</h3>
+    <h3>Details</h3>
     <p style="white-space:pre-wrap">${escapeHtml(details)}</p>
   `.trim();
 

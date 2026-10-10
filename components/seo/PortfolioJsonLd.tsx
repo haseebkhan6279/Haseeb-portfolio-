@@ -1,4 +1,5 @@
 import { CONTACT, PROFILE } from "@/data/site";
+import { SKILL_GROUPS } from "@/data/experience";
 import { SITE_URL } from "@/lib/metadata";
 
 export default function PortfolioJsonLd() {
@@ -9,44 +10,19 @@ export default function PortfolioJsonLd() {
         "@type": "Person",
         "@id": `${SITE_URL}/#person`,
         name: PROFILE.name,
+        alternateName: PROFILE.displayName,
         jobTitle: PROFILE.role,
         description: PROFILE.description,
         url: SITE_URL,
         email: CONTACT.email,
-        telephone: CONTACT.phone,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Lahore",
-          addressCountry: "PK",
-        },
+        address: { "@type": "PostalAddress", addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" },
+        worksFor: { "@type": "Organization", name: "Hypelet" },
+        alumniOf: [
+          { "@type": "CollegeOrUniversity", name: "The University of Lahore" },
+          { "@type": "CollegeOrUniversity", name: "Forman Christian College" },
+        ],
         sameAs: [CONTACT.linkedIn, CONTACT.github],
-        knowsAbout: [
-          "Web Development",
-          "SaaS Development",
-          "E-commerce",
-          "Mobile App Development",
-          "AI Integration",
-          "SEO",
-        ],
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": `${SITE_URL}/#business`,
-        name: `${PROFILE.displayName} — Freelance Web Development`,
-        description: PROFILE.description,
-        url: SITE_URL,
-        priceRange: "$$",
-        areaServed: "Worldwide",
-        provider: { "@id": `${SITE_URL}/#person` },
-        serviceType: [
-          "Custom Web Development",
-          "SaaS Development",
-          "E-commerce Development",
-          "AI Integration",
-          "Landing Page Design",
-          "Website Optimization",
-          "Mobile App Development",
-        ],
+        knowsAbout: SKILL_GROUPS.flatMap((g) => g.items),
       },
       {
         "@type": "WebSite",
@@ -59,10 +35,5 @@ export default function PortfolioJsonLd() {
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

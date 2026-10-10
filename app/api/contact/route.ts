@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isContactServiceOption } from "@/data/services";
+import { isContactTopic } from "@/data/contact";
 import { sendContactEmail } from "@/lib/contact-email";
 
 const MAX_MESSAGE = 8000;
@@ -33,8 +33,8 @@ export async function POST(req: Request) {
   if (!email || !serviceInterest) {
     return NextResponse.json({ error: "Email and service interest are required." }, { status: 400 });
   }
-  if (!isContactServiceOption(serviceInterest)) {
-    return NextResponse.json({ error: "Please choose a valid service." }, { status: 400 });
+  if (!isContactTopic(serviceInterest)) {
+    return NextResponse.json({ error: "Please choose a valid topic." }, { status: 400 });
   }
   if (!isValidEmail(email)) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
