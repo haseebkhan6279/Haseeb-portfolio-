@@ -1,17 +1,12 @@
 import { SplitReveal } from "@/components/ui/Reveal";
 
 export default function SectionHeading({
-  index,
-  name,
   title,
   accent,
   after,
   children,
   className = "",
 }: {
-  index?: string;
-  name: string;
-  command?: string;
   title: string;
   /** Words rendered in the italic serif accent, after `title`. */
   accent?: string;
@@ -23,12 +18,7 @@ export default function SectionHeading({
   return (
     <div className={`mb-12 grid gap-6 sm:mb-16 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-12 ${className}`}>
       <div>
-        <p className="kicker">
-          {index ? <span className="text-fg">{index}</span> : null}
-          {index ? <span aria-hidden>/</span> : null}
-          {name}
-        </p>
-        <SplitReveal as="h2" className="h-section mt-5 max-w-[18ch]">
+        <SplitReveal as="h2" className="h-section max-w-[18ch]">
           {title}
           {accent ? (
             <>

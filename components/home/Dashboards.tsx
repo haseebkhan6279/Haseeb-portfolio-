@@ -201,7 +201,7 @@ export default function Dashboards() {
       {/* Mobile + tablet */}
       <div className="section pin:hidden">
         <div className="shell">
-          <SectionHeading index="03" name="SaaS platforms" title="Multi-tenant SaaS," accent="running real businesses.">
+          <SectionHeading title="Multi-tenant SaaS," accent="running real businesses.">
             Four multi-tenant platforms I designed and built — every business gets its own isolated workspace — plus a
             back office for a UK phone wholesaler.
           </SectionHeading>

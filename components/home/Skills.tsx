@@ -17,7 +17,7 @@ export default function Skills() {
     <section id="skills" className="section relative scroll-mt-16 overflow-hidden border-t border-line bg-bg-2">
       <div aria-hidden className="aurora -right-40 top-20 h-[28rem] w-[28rem] bg-[#ff5a3c] opacity-20" />
       <div className="shell relative">
-        <SectionHeading index="08" name="Tech stack" title="Modern tools," accent="production-proven.">
+        <SectionHeading title="Modern tools," accent="production-proven.">
           The stack I use day to day to ship fast, maintainable products — and the right tool when a project needs
           something else.
         </SectionHeading>

@@ -42,7 +42,7 @@ export default function Process() {
   return (
     <section ref={root} id="process" className="section scroll-mt-16 border-y border-line bg-bg-2">
       <div className="shell">
-        <SectionHeading index="05" name="Process" title="A clear process," accent="no surprises.">
+        <SectionHeading title="A clear process," accent="no surprises.">
           You always know what’s being built, what it costs and when it ships. Here’s how a typical project runs.
         </SectionHeading>
 

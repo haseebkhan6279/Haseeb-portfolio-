@@ -121,7 +121,7 @@ export default function TerminalSection() {
   return (
     <section id="terminal" className="section">
       <div className="shell">
-        <SectionHeading index="06" name="terminal" command="./haseeb-sh" title="Try the" accent="terminal">
+        <SectionHeading title="Try the" accent="terminal">
           Poke around — it actually works. Start with <code className="text-accent">help</code>.
         </SectionHeading>
 

@@ -14,7 +14,7 @@ export default function Experience() {
   return (
     <section id="experience" className="section scroll-mt-16 border-t border-line">
       <div className="shell">
-        <SectionHeading index="07" name="Experience" title="Where I’ve been" accent="building.">
+        <SectionHeading title="Where I’ve been" accent="building.">
           Product teams at Hypelet and Tekvers, and the agency internship where it started.
         </SectionHeading>
 

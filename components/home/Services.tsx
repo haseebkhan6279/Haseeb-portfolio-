@@ -30,7 +30,7 @@ export default function Services() {
         const pin = q<HTMLElement>(".svc-pin")[0];
         if (!track || !pin) return;
         const distance = () => track.scrollWidth - window.innerWidth + 48;
-        const tween = gsap.to(track, {
+        gsap.to(track, {
           x: () => -distance(),
           ease: "none",
           scrollTrigger: {
@@ -41,14 +41,6 @@ export default function Services() {
             scrub: 0.8,
             invalidateOnRefresh: true,
           },
-        });
-        // Each card's number drifts against the track for depth.
-        q<HTMLElement>(".svc-num").forEach((el) => {
-          gsap.fromTo(el, { xPercent: 40 }, {
-            xPercent: -40,
-            ease: "none",
-            scrollTrigger: { trigger: el.closest(".svc-card"), containerAnimation: tween, start: "left right", end: "right left", scrub: true },
-          });
         });
         gsap.to(q(".svc-progress"), {
           scaleX: 1,
@@ -66,7 +58,7 @@ export default function Services() {
       <div className="svc-pin relative overflow-hidden py-[clamp(4.5rem,8vw,6.75rem)] pin-tall:flex pin-tall:h-svh pin-tall:flex-col pin-tall:justify-center pin-tall:pb-8 pin-tall:pt-20">
         <div aria-hidden className="aurora -left-40 top-1/3 h-[30rem] w-[30rem] bg-[#6d4bff] opacity-25" />
         <div className="shell">
-          <SectionHeading index="04" name="Services" title="Everything you need to" accent="launch & grow." className="!mb-10 pin-tall:!mb-8">
+          <SectionHeading title="Everything you need to" accent="launch & grow." className="!mb-10 pin-tall:!mb-8">
             One accountable partner for product design, engineering and launch — so you get a working product, not a
             handoff between agencies.
           </SectionHeading>
@@ -83,12 +75,6 @@ export default function Services() {
                 className="svc-card spotlight gradient-border group relative flex min-h-[24rem] flex-col overflow-hidden rounded-[28px] bg-surface p-7 transition-transform duration-500 hover:-translate-y-1 sm:p-9 pin-tall:h-[min(30rem,calc(100svh-19rem))] pin-tall:w-[26rem]"
                 style={{ ["--tint" as string]: tint }}
               >
-                <span
-                  aria-hidden
-                  className="svc-num text-outline pointer-events-none absolute -bottom-6 right-2 select-none font-display text-[10rem] leading-none tracking-[-0.06em]"
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
                 <div
                   aria-hidden
                   className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-30 blur-[60px] transition-opacity duration-500 group-hover:opacity-60"

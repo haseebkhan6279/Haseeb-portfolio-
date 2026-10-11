@@ -151,7 +151,7 @@ export default function Education() {
       <div aria-hidden className="aurora -right-40 bottom-0 h-[26rem] w-[26rem] bg-[#6d4bff] opacity-20" />
 
       <div className="shell relative">
-        <SectionHeading index="09" name="Education" title="Education &" accent="certifications.">
+        <SectionHeading title="Education &" accent="certifications.">
           A Computer Science foundation — now a Master’s in progress — sharpened by shipping real products.
         </SectionHeading>
 

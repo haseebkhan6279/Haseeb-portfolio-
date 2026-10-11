@@ -196,7 +196,7 @@ export default function Projects() {
   return (
     <section id="work" className="theme-ink section scroll-mt-0">
       <div className="shell">
-        <SectionHeading index="01" name="Selected work" title="Real products," accent="live in production.">
+        <SectionHeading title="Real products," accent="live in production.">
           A selection of platforms I’ve designed and built for clients. Open the live site, or read the case study.
         </SectionHeading>
 
@@ -220,7 +220,7 @@ export function ProjectArchive() {
   return (
     <section id="archive" className="theme-ink section scroll-mt-16 border-t border-line">
       <div className="shell">
-        <SectionHeading index="02" name="Project archive" title="More from" accent="the archive.">
+        <SectionHeading title="More from" accent="the archive.">
           Filter by industry. Where a product is live, you can open it in one tap.
         </SectionHeading>
         <Archive />
