@@ -14,7 +14,7 @@ import { Sparkle } from "lucide-react";
 import { useRef } from "react";
 import { PROJECTS } from "@/data/projects";
 
-const EXTRA = new Set(["hypelet", "atlantic-devices", "manpowerhub", "splendid", "tekvers", "gt-estate"]);
+const EXTRA = new Set(["atlantic-devices", "manpowerhub", "splendid", "tekvers", "gt-estate"]);
 const NAMES = PROJECTS.filter((p) => p.featured || EXTRA.has(p.slug)).map((p) => p.name);
 const SKILLS = ["Next.js", "React Native", "Node.js", "TypeScript", "NestJS", "PostgreSQL", "Three.js", "GSAP", "Stripe"];
 

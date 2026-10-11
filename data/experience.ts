@@ -99,28 +99,50 @@ export const EXPERIENCE: Experience[] = [
   },
 ];
 
-export const EDUCATION = [
+export type EducationItem = {
+  school: string;
+  short: string;
+  degree: string;
+  period: string;
+  /** YYYY-MM, used for the in-progress bar. */
+  start: string;
+  end: string;
+  note?: string;
+  /** Case study for a thesis or final project. */
+  projectSlug?: string;
+  current?: boolean;
+};
+
+export const EDUCATION: EducationItem[] = [
   {
     school: "Information Technology University",
     short: "ITU",
     degree: "Master's Degree, Computer Science",
     period: "Aug 2026 — Jan 2028",
+    start: "2026-08",
+    end: "2028-01",
     note: "In progress",
+    current: true,
   },
   {
     school: "The University of Lahore",
     short: "UOL",
     degree: "Bachelor's Degree, Computer Science",
     period: "Jan 2022 — Feb 2026",
+    start: "2022-01",
+    end: "2026-02",
     note: "Thesis: Court Chuno (React Native + Firebase)",
+    projectSlug: "court-chuno",
   },
   {
     school: "Forman Christian College, Lahore",
     short: "FCC",
     degree: "Intermediate, Pre-Engineering",
     period: "Aug 2019 — Jun 2021",
+    start: "2019-08",
+    end: "2021-06",
   },
-] as const;
+];
 
 export const CERTIFICATIONS = [
   "Claude AI",

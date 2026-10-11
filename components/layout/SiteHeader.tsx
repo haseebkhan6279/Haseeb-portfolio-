@@ -119,7 +119,7 @@ export default function SiteHeader() {
                   onFocus={() => setHovered(l.href)}
                   onBlur={() => setHovered(null)}
                   aria-current={current ? "location" : undefined}
-                  className={`relative isolate rounded-full px-4 py-2 text-[13.5px] font-medium transition-colors duration-300 ${
+                  className={`relative isolate rounded-full px-3 py-2 text-[13.5px] xl:px-4 font-medium transition-colors duration-300 ${
                     on || current ? "text-fg" : "text-fg-2 hover:text-fg"
                   }`}
                 >
