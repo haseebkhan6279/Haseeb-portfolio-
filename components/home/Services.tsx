@@ -54,9 +54,9 @@ export default function Services() {
   );
 
   return (
-    <section ref={root} id="services" className="relative scroll-mt-16">
+    <section ref={root} id="services" className="relative isolate scroll-mt-16">
       <div className="svc-pin relative overflow-hidden py-[clamp(4.5rem,8vw,6.75rem)] pin-tall:flex pin-tall:h-svh pin-tall:flex-col pin-tall:justify-center pin-tall:pb-8 pin-tall:pt-20">
-        <div aria-hidden className="aurora -left-40 top-1/3 h-[30rem] w-[30rem] bg-[#ffffff] opacity-[0.07]" />
+        <div aria-hidden className="aurora -z-10 -left-40 top-1/3 h-[30rem] w-[30rem] bg-[var(--glow-sage)] opacity-[0.18]" />
         <div className="shell">
           <SectionHeading title="Everything you need to" accent="launch & grow." className="!mb-10 pin-tall:!mb-8">
             One accountable partner for product design, engineering and launch — so you get a working product, not a

@@ -14,8 +14,8 @@ const SPANS = ["lg:col-span-2 lg:row-span-2", "", "", "lg:col-span-2", ""];
 
 export default function Skills() {
   return (
-    <section id="skills" className="section relative scroll-mt-16 overflow-hidden border-t border-line bg-bg-2">
-      <div aria-hidden className="aurora -right-40 top-20 h-[28rem] w-[28rem] bg-[#ffffff] opacity-[0.07]" />
+    <section id="skills" className="section relative isolate scroll-mt-16 overflow-hidden border-t border-line bg-bg-2">
+      <div aria-hidden className="aurora -z-10 -right-40 top-20 h-[28rem] w-[28rem] bg-[var(--glow-indigo)] opacity-[0.16]" />
       <div className="shell relative">
         <SectionHeading title="Modern tools," accent="production-proven.">
           The stack I use day to day to ship fast, maintainable products — and the right tool when a project needs

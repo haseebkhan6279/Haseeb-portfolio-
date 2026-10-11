@@ -104,6 +104,8 @@ export default function Hero({ photo }: { photo: string | null }) {
       {/* Atmosphere: one soft white spotlight from the top */}
       <div aria-hidden className="hero-aurora pointer-events-none absolute inset-0 -z-20">
         <div data-depth="-0.3" className="absolute inset-x-0 top-0 h-[80%] bg-[radial-gradient(ellipse_55%_60%_at_50%_0%,rgb(255_255_255/0.09),transparent_70%)]" />
+        <div data-depth="-0.6" className="aurora -left-[10%] bottom-[-10%] h-[36vw] w-[36vw] bg-[var(--glow-indigo)] opacity-[0.22]" />
+        <div data-depth="-0.4" className="aurora -right-[8%] bottom-[0%] h-[30vw] w-[30vw] bg-[var(--glow-bronze)] opacity-[0.16]" />
       </div>
       <div
         aria-hidden

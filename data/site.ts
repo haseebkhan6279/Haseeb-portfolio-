@@ -17,6 +17,7 @@ export const PROFILE = {
 
 export const NAV_LINKS = [
   { label: "Work", href: "/#work" },
+  { label: "Projects", href: "/archive" },
   { label: "SaaS", href: "/#dashboards" },
   { label: "Services", href: "/#services" },
   { label: "About", href: "/#about" },

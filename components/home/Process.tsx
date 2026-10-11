@@ -40,7 +40,8 @@ export default function Process() {
   );
 
   return (
-    <section ref={root} id="process" className="section scroll-mt-16 border-y border-line bg-bg-2">
+    <section ref={root} id="process" className="section relative isolate scroll-mt-16 border-y border-line bg-bg-2">
+      <div aria-hidden className="aurora -z-10 -right-40 top-10 h-[30rem] w-[30rem] bg-[var(--glow-bronze)] opacity-[0.14]" />
       <div className="shell">
         <SectionHeading title="A clear process," accent="no surprises.">
           You always know what’s being built, what it costs and when it ships. Here’s how a typical project runs.

@@ -46,8 +46,8 @@ export default function SiteFooter() {
 
   return (
     <footer ref={ref} className="theme-ink relative isolate overflow-hidden">
-      <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute -right-32 -top-32 -z-10 h-[520px] w-[520px] rounded-full bg-[#ffffff]/[0.05] blur-[130px]" />
-      <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[420px] w-[420px] rounded-full bg-[#ffffff]/[0.05] blur-[130px]" />
+      <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute -right-32 -top-32 -z-10 h-[520px] w-[520px] rounded-full bg-[var(--glow-indigo)]/[0.2] blur-[130px]" />
+      <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[420px] w-[420px] rounded-full bg-[var(--glow-bronze)]/[0.14] blur-[130px]" />
       <div className="shell relative pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-20 sm:pt-28">
         <div className="grid gap-14 lg:grid-cols-[1.35fr_1fr] lg:items-end">
           <div>

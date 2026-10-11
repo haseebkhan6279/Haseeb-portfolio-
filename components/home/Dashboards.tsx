@@ -217,17 +217,13 @@ export default function Dashboards() {
       <div className="dash-pin relative hidden h-svh flex-col overflow-hidden pb-6 pt-[5.5rem] pin:flex">
         <div
           aria-hidden
-          className="aurora left-[60%] top-1/2 h-[30rem] w-[50rem] -translate-x-1/2 -translate-y-1/3 opacity-[0.07] transition-colors duration-700"
+          className="aurora left-[60%] top-1/2 h-[30rem] w-[50rem] -translate-x-1/2 -translate-y-1/3 opacity-[0.22] transition-colors duration-700"
           style={{ background: current.tint }}
         />
 
         <div className="shell relative flex shrink-0 items-end justify-between gap-8">
           <div className="min-w-0">
-            <p className="kicker">
-              <span className="text-fg">03</span>
-              <span aria-hidden>/</span>SaaS platforms
-            </p>
-            <h2 className="mt-3 font-display text-[clamp(1.8rem,2.7vw,2.6rem)] font-semibold leading-[1.02] tracking-[-0.04em]">
+            <h2 className="font-display text-[clamp(1.8rem,2.7vw,2.6rem)] font-semibold leading-[1.02] tracking-[-0.04em]">
               Multi-tenant SaaS, <span className="serif-i">running real businesses.</span>
             </h2>
           </div>

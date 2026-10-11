@@ -12,7 +12,8 @@ export default function Experience() {
   const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   return (
-    <section id="experience" className="section scroll-mt-16 border-t border-line">
+    <section id="experience" className="section relative isolate scroll-mt-16 border-t border-line">
+      <div aria-hidden className="aurora -z-10 -right-48 top-1/3 h-[30rem] w-[30rem] bg-[var(--glow-sage)] opacity-[0.14]" />
       <div className="shell">
         <SectionHeading title="Where I’ve been" accent="building.">
           Product teams at Hypelet and Tekvers, and the agency internship where it started.

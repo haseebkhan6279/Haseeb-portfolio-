@@ -195,7 +195,8 @@ export function Archive() {
 
 export default function Projects() {
   return (
-    <section id="work" className="theme-ink section scroll-mt-0">
+    <section id="work" className="theme-ink section relative isolate scroll-mt-0">
+      <div aria-hidden className="aurora -z-10 -right-40 top-24 h-[34rem] w-[34rem] bg-[var(--glow-indigo)] opacity-[0.18]" />
       <div className="shell">
         <SectionHeading title="Real products," accent="live in production.">
           A selection of platforms I’ve designed and built for clients. Open the live site, or read the case study.

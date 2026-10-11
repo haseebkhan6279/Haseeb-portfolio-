@@ -146,9 +146,9 @@ export default function Education() {
   );
 
   return (
-    <section ref={root} id="education" className="section relative scroll-mt-16 overflow-hidden border-t border-line">
-      <div aria-hidden className="aurora -left-40 top-1/3 h-[26rem] w-[26rem] bg-[#ffffff] opacity-[0.07]" />
-      <div aria-hidden className="aurora -right-40 bottom-0 h-[26rem] w-[26rem] bg-[#ffffff] opacity-[0.07]" />
+    <section ref={root} id="education" className="section relative isolate scroll-mt-16 overflow-hidden border-t border-line">
+      <div aria-hidden className="aurora -z-10 -left-40 top-1/3 h-[26rem] w-[26rem] bg-[var(--glow-bronze)] opacity-[0.16]" />
+      <div aria-hidden className="aurora -z-10 -right-40 bottom-0 h-[26rem] w-[26rem] bg-[var(--glow-sage)] opacity-[0.14]" />
 
       <div className="shell relative">
         <SectionHeading title="Education &" accent="certifications.">

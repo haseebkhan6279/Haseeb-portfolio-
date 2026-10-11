@@ -145,7 +145,8 @@ export default function ProfileCard({ github }: { github: GithubProfile | null }
   );
 
   return (
-    <section ref={root} id="about" className="section scroll-mt-16">
+    <section ref={root} id="about" className="section relative isolate scroll-mt-16">
+      <div aria-hidden className="aurora -z-10 -left-48 top-1/4 h-[32rem] w-[32rem] bg-[var(--glow-indigo)] opacity-[0.16]" />
       <div className="shell">
         <SectionHeading title="A developer who thinks like" accent="a product owner.">
           {PROFILE.manifesto}

@@ -25,6 +25,10 @@
   --accent-fg: #0a0a0a;
   --gradient: linear-gradient(100deg, #ffffff 0%, #e5e5e5 100%);
   --ok: #4ade80;
+  /* Muted ambient tints for background glows only — type and controls stay monochrome. */
+  --glow-indigo: #4f5bd5;
+  --glow-sage: #5f8f78;
+  --glow-bronze: #a8714f;
   --danger: #ff6b7a;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35), 0 6px 18px -8px rgb(0 0 0 / 0.6);
   --shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 30px 60px -30px rgb(0 0 0 / 0.85);
