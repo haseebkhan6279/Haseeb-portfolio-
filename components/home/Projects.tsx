@@ -210,12 +210,20 @@ export default function Projects() {
           </Magnetic>
         </div>
 
-        <div className="mt-24 border-t border-line pt-20 sm:mt-32 sm:pt-28">
-          <SectionHeading name="Project archive" title="More from" accent="the archive.">
-            Filter by industry. Where a product is live, you can open it in one tap.
-          </SectionHeading>
-          <Archive />
-        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Filterable archive of every project — its own section after Selected work. */
+export function ProjectArchive() {
+  return (
+    <section id="archive" className="theme-ink section scroll-mt-16 border-t border-line">
+      <div className="shell">
+        <SectionHeading index="02" name="Project archive" title="More from" accent="the archive.">
+          Filter by industry. Where a product is live, you can open it in one tap.
+        </SectionHeading>
+        <Archive />
       </div>
     </section>
   );

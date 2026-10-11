@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
     "cmdk": "^1.1.1",
     "framer-motion": "^12.40.0",
     "gsap": "^3.15.0",
@@ -20,7 +22,9 @@
     "nodemailer": "^8.0.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "^6.12.4"
+    "react-parallax-tilt": "^1.7.346",
+    "resend": "^6.12.4",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -28,6 +32,7 @@
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "playwright": "^1.60.0",

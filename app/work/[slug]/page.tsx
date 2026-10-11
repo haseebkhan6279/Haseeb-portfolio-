@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { GithubIcon } from "@/components/ui/BrandIcons";
+import HeaderAtmosphere from "@/components/ui/HeaderAtmosphere";
 import { Reveal } from "@/components/ui/Reveal";
 import LoopVideo from "@/components/ui/LoopVideo";
 import Parallax from "@/components/work/Parallax";
@@ -59,10 +60,10 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <article>
-      <header className="relative overflow-hidden">
-        <div className="dot-grid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,#000,transparent)]" aria-hidden />
+      <header className="relative isolate overflow-hidden">
+        <HeaderAtmosphere watermark={p.name} />
         <div className="shell relative pb-10 pt-28 sm:pt-36">
-          <Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg">
+          <Link href="/work" className="flex w-fit items-center gap-2 text-sm text-muted transition-colors hover:text-fg">
             <ArrowLeft size={15} /> All work
           </Link>
           <p className="kicker mt-8">
@@ -123,7 +124,7 @@ export default async function ProjectPage({ params }: Props) {
           <Reveal className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
             {p.metrics.map((m) => (
               <div key={m.label} className="bg-bg-2 p-7">
-                <p className="font-serif text-[clamp(2rem,4vw,3.2rem)] leading-none">{m.value}</p>
+                <p className="font-display text-[clamp(2rem,4vw,3.2rem)] leading-none">{m.value}</p>
                 <p className="mt-2 text-sm text-muted">{m.label}</p>
               </div>
             ))}
@@ -222,7 +223,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="shell flex items-end justify-between gap-6 py-20">
           <div>
             <p className="kicker">Next project</p>
-            <p className="mt-3 font-serif text-[clamp(2.2rem,6vw,5rem)] leading-none tracking-tight transition-colors group-hover:text-accent">
+            <p className="mt-3 font-display text-[clamp(2.2rem,6vw,5rem)] leading-none tracking-tight transition-colors group-hover:text-accent">
               {next.name}
             </p>
             <p className="mt-3 text-muted">{next.tagline}</p>

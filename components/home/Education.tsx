@@ -9,7 +9,7 @@ export default function Education() {
   return (
     <section id="education" className="section scroll-mt-16 border-t border-line">
       <div className="shell">
-        <SectionHeading index="07" name="Education" title="Education &" accent="certifications.">
+        <SectionHeading index="09" name="Education" title="Education &" accent="certifications.">
           A Computer Science foundation, sharpened by shipping real products.
         </SectionHeading>
 

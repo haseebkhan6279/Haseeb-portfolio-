@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Bricolage_Grotesque, Fraunces, JetBrains_Mono, Manrope } from "next/font/google";
 import AppProviders from "@/components/providers/AppProviders";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
@@ -6,14 +6,10 @@ import PortfolioJsonLd from "@/components/seo/PortfolioJsonLd";
 import { rootMetadata } from "@/lib/metadata";
 import "./globals.css";
 
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
+const display = Bricolage_Grotesque({ variable: "--font-display", subsets: ["latin"], axes: ["opsz", "wdth"] });
+const body = Manrope({ variable: "--font-body", subsets: ["latin"] });
+const mono = JetBrains_Mono({ variable: "--font-code", subsets: ["latin"] });
+const serif = Fraunces({ variable: "--font-serif-i", subsets: ["latin"], style: ["italic"], axes: ["SOFT", "WONK", "opsz"] });
 
 export const metadata = rootMetadata;
 
@@ -21,14 +17,14 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0b0d0c",
+  themeColor: "#07060d",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${instrument.variable}`}
+      className={`${display.variable} ${body.variable} ${mono.variable} ${serif.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -40,6 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <main>{children}</main>
           <SiteFooter />
         </AppProviders>
+        <div aria-hidden className="grain" />
       </body>
     </html>
   );

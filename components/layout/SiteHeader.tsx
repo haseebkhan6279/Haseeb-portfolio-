@@ -10,17 +10,41 @@ import { openCommandPalette } from "@/components/ui/CommandPalette";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+/** Tracks which home-page section is in the middle of the viewport. */
+function useActiveSection(enabled: boolean) {
+  const [active, setActive] = useState<string | null>(null);
+  useEffect(() => {
+    if (!enabled) return;
+    const els = NAV_LINKS.map((l) => document.getElementById(l.href.split("#")[1] ?? "")).filter(
+      (el): el is HTMLElement => Boolean(el),
+    );
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(`/#${e.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [enabled]);
+  return enabled ? active : null;
+}
+
 export default function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
   const { scrollY } = useScroll();
+  const section = useActiveSection(pathname === "/");
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
-    setHidden(y > prev && y > 500 && !open);
-    setScrolled(y > 24);
+    setHidden(y > prev && y > 700 && !open);
+    setScrolled(y > 40);
   });
 
   const [prevPath, setPrevPath] = useState(pathname);
@@ -32,72 +56,118 @@ export default function SiteHeader() {
     document.documentElement.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  const isActive = (href: string) => !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`));
-  const solid = scrolled || open;
+  const compact = scrolled && !open;
+  // Page links (e.g. /blog) are "current" by route; home anchors by the section in view.
+  const routeMatch = NAV_LINKS.find((l) => !l.href.includes("#") && (pathname === l.href || pathname.startsWith(`${l.href}/`)))?.href;
+  const currentHref = section ?? routeMatch ?? null;
+  const highlight = hovered ?? currentHref;
 
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-[80]"
-        animate={{ y: hidden ? "-110%" : "0%" }}
-        transition={{ duration: 0.45, ease }}
+        className="fixed inset-x-0 top-0 z-[80] px-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] sm:px-5"
+        animate={{ y: hidden ? "-130%" : "0%" }}
+        transition={{ duration: 0.5, ease }}
       >
         <div
-          className={`border-b pt-[env(safe-area-inset-top)] transition-[background-color,border-color,backdrop-filter] duration-500 ${
-            solid ? "border-line bg-bg/85 backdrop-blur-xl" : "border-transparent bg-transparent"
+          className={`relative mx-auto flex items-center gap-3 rounded-full border transition-[max-width,height,padding,background-color,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            compact
+              ? "h-[3.6rem] max-w-[1060px] border-line-strong bg-[rgb(13_11_23/0.86)] pl-2 pr-2 shadow-[0_20px_50px_-20px_rgb(0_0_0/0.8)] backdrop-blur-2xl backdrop-saturate-150"
+              : "h-16 max-w-[1240px] border-transparent bg-transparent px-1 sm:px-[clamp(0.5rem,2vw,1.4rem)] sm:h-[4.5rem]"
           }`}
         >
-          <div className="shell flex h-16 items-center gap-4 sm:h-[4.5rem]">
-            <Link href="/" className="group flex min-w-0 items-center gap-3" aria-label={`${PROFILE.displayName} — home`}>
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-fg text-[13px] font-semibold tracking-tight text-bg transition-transform duration-500 group-hover:rotate-[-6deg]">
-                HK
-              </span>
-              <span className="min-w-0 leading-tight">
-                <span className="block truncate text-[15px] font-semibold tracking-tight">{PROFILE.displayName}</span>
-                <span className="block truncate text-xs text-muted">{PROFILE.role}</span>
-              </span>
-            </Link>
+          {/* Hairline gradient glow along the bottom edge of the capsule. */}
+          <span
+            aria-hidden
+            className={`pointer-events-none absolute inset-x-10 -bottom-px h-px bg-[image:linear-gradient(90deg,transparent,#b69cff,#ff7a59,transparent)] transition-opacity duration-700 ${
+              compact ? "opacity-70" : "opacity-0"
+            }`}
+          />
 
-            <nav className="mx-auto hidden items-center gap-1 lg:flex" aria-label="Primary">
-              {NAV_LINKS.map((l) => (
+          <Link href="/" className="group flex min-w-0 items-center gap-3" aria-label={`${PROFILE.displayName} — home`}>
+            <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[image:var(--gradient)] font-display text-[13px] font-bold tracking-tight text-accent-fg shadow-[0_6px_20px_-6px_rgb(255_122_89/0.6)] transition-transform duration-500 group-hover:rotate-[-12deg] group-hover:scale-110">
+              HK
+              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-bg bg-ok" />
+            </span>
+            <span className="min-w-0 leading-tight">
+              <span className="block truncate font-display text-[17px] font-semibold tracking-[-0.03em]">{PROFILE.displayName}</span>
+              <span
+                className={`block truncate text-xs text-muted transition-all duration-500 ${
+                  compact ? "max-h-0 opacity-0" : "max-h-5 opacity-100"
+                }`}
+              >
+                {PROFILE.role}
+              </span>
+            </span>
+          </Link>
+
+          <nav
+            className={`mx-auto hidden items-center rounded-full p-1 transition-[background-color,border-color] duration-700 lg:flex ${
+              compact ? "border border-transparent" : "border border-line bg-surface/40 backdrop-blur-xl"
+            }`}
+            aria-label="Primary"
+            onPointerLeave={() => setHovered(null)}
+          >
+            {NAV_LINKS.map((l) => {
+              const on = highlight === l.href;
+              const current = currentHref === l.href;
+              return (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className={`rounded-full px-4 py-2 text-sm transition-colors ${
-                    isActive(l.href) ? "text-fg" : "text-fg-2 hover:bg-surface-2 hover:text-fg"
+                  onPointerEnter={() => setHovered(l.href)}
+                  onFocus={() => setHovered(l.href)}
+                  onBlur={() => setHovered(null)}
+                  aria-current={current ? "location" : undefined}
+                  className={`relative isolate rounded-full px-4 py-2 text-[13.5px] font-medium transition-colors duration-300 ${
+                    on || current ? "text-fg" : "text-fg-2 hover:text-fg"
                   }`}
                 >
+                  {on ? (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 -z-10 rounded-full border border-line-strong bg-[linear-gradient(180deg,rgb(255_255_255/0.09),rgb(255_255_255/0.03))]"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  ) : null}
                   {l.label}
+                  {current ? (
+                    <motion.span
+                      layoutId="nav-dot"
+                      className="absolute -bottom-0.5 left-[calc(50%-2px)] h-1 w-1 rounded-full bg-accent-2"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  ) : null}
                 </Link>
-              ))}
-            </nav>
+              );
+            })}
+          </nav>
 
-            <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
-              <button
-                type="button"
-                onClick={openCommandPalette}
-                className="hidden h-10 items-center gap-2 rounded-full border border-line bg-surface px-3.5 text-[13px] text-muted transition-colors hover:border-line-strong hover:text-fg lg:inline-flex"
-                aria-label="Search projects and pages"
-              >
-                <Search size={14} />
-                <kbd className="font-mono text-[11px]">Ctrl K</kbd>
-              </button>
-              <Link href="/contact" className="btn btn-dark hidden h-10 px-5 text-[13.5px] sm:inline-flex">
-                Hire me <ArrowUpRight size={15} />
-              </Link>
-              <button
-                type="button"
-                onClick={() => setOpen((o) => !o)}
-                className="relative z-20 grid h-10 w-10 place-items-center rounded-full border border-line-strong bg-surface text-fg lg:hidden"
-                aria-expanded={open}
-                aria-label={open ? "Close menu" : "Open menu"}
-              >
-                <span className="relative block h-3 w-4">
-                  <span className={`absolute left-0 h-[1.5px] w-4 rounded bg-current transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
-                  <span className={`absolute left-0 h-[1.5px] w-4 rounded bg-current transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
-                </span>
-              </button>
-            </div>
+          <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
+            <button
+              type="button"
+              onClick={openCommandPalette}
+              className="group hidden h-10 items-center gap-2 rounded-full border border-line bg-surface/50 pl-3 pr-2 text-[13px] text-muted backdrop-blur-xl transition-colors hover:border-line-strong hover:text-fg lg:inline-flex"
+              aria-label="Search projects and pages"
+            >
+              <Search size={15} />
+              <kbd className="rounded-md border border-line bg-bg/60 px-1.5 py-0.5 font-mono text-[10.5px]">Ctrl K</kbd>
+            </button>
+            <Link href="/contact" className="btn btn-primary hidden h-10 px-5 text-[13.5px] sm:inline-flex">
+              Hire me <ArrowUpRight size={15} />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen((o) => !o)}
+              className="relative z-20 grid h-10 w-10 place-items-center rounded-full border border-line-strong bg-surface/60 text-fg backdrop-blur-xl lg:hidden"
+              aria-expanded={open}
+              aria-label={open ? "Close menu" : "Open menu"}
+            >
+              <span className="relative block h-3 w-4">
+                <span className={`absolute left-0 h-[1.5px] w-4 rounded bg-current transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 h-[1.5px] w-4 rounded bg-current transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+              </span>
+            </button>
           </div>
         </div>
       </motion.header>

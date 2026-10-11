@@ -109,7 +109,7 @@ export default function WorkShowcase() {
           const on = i === active;
           return (
             <li key={p.slug} className="border-t border-line last:border-b">
-              <div className="group relative flex w-full items-center gap-5 py-5 sm:py-6">
+              <div className="group relative flex w-full items-center gap-5 py-5 pl-5 sm:py-6">
                 {on ? (
                   <motion.span
                     layoutId="work-active-bar"

@@ -55,7 +55,7 @@ const RAW_PROJECTS: Project[] = [
     name: "Vellay",
     tagline: "Book sports venues online",
     description:
-      "A booking product for sports venues in Pakistan. Owners run courts from a dashboard. Players find venues on a map, pick a time and book — on the web or on their phone.",
+      "A multi-tenant booking SaaS for sports venues in Pakistan. Each venue is its own tenant, and owners run courts from a dashboard. Players find venues on a map, pick a time and book — on the web or on their phone.",
     categories: ["SaaS & Dashboards", "Booking & Marketplaces", "Mobile"],
     status: "Live",
     role: "I designed and built this",
@@ -71,7 +71,7 @@ const RAW_PROJECTS: Project[] = [
       { value: "3 apps", label: "Owner, web and phone" },
     ],
     architecture: [
-      "Owner dashboard — staff logins, schedules and revenue",
+      "Owner dashboard — multi-tenant, so each venue's staff, schedules and revenue stay separate",
       "Player website — find venues on a map and book a slot",
       "Phone app — the same booking flow on iPhone and Android",
       "Payments — cash, bank transfer, JazzCash and EasyPaisa",
@@ -197,7 +197,7 @@ const RAW_PROJECTS: Project[] = [
     name: "OSTELLO",
     tagline: "Run a hostel from one system",
     description:
-      "A product for hostel operators: a public site that shows which beds are free, an application form for students, and a staff dashboard for occupancy, billing, kitchen, transport and more. Still being built.",
+      "A multi-tenant SaaS for hostel operators — each operator and its branches kept separate: a public site that shows which beds are free, an application form for students, and a staff dashboard for occupancy, billing, kitchen, transport and more. Still being built.",
     categories: ["SaaS & Dashboards", "Booking & Marketplaces"],
     status: "In development",
     role: "I led the website and dashboard",
@@ -236,7 +236,7 @@ const RAW_PROJECTS: Project[] = [
     name: "Zallo.ai",
     tagline: "AI receptionist — website, CRM and staff app",
     description:
-      "A product suite for an AI receptionist company: the marketing website, a dashboard for managing leads, and a staff phone app. Still being built.",
+      "A multi-tenant product suite for an AI receptionist company: the marketing website, a client portal where each clinic sees its own calls, bookings and leads, and a staff phone app. Still being built.",
     categories: ["AI", "SaaS & Dashboards", "Mobile"],
     status: "In development",
     role: "I designed and built this",
@@ -252,7 +252,7 @@ const RAW_PROJECTS: Project[] = [
     ],
     highlights: [
       "Marketing site for the AI receptionist product",
-      "Dashboard so each company only sees its own leads",
+      "Multi-tenant client portal — each clinic only sees its own calls and leads",
       "Staff phone app for calls and follow-up on the go",
       "Same login on the dashboard and the phone app",
     ],
@@ -288,7 +288,7 @@ const RAW_PROJECTS: Project[] = [
     name: "ManpowerHub",
     tagline: "Staffing software for agencies",
     description:
-      "Software for manpower agencies: one approved timesheet drives both payroll and invoicing, with each company kept separate. Still being built.",
+      "Multi-tenant SaaS for manpower agencies, already running in production for Rukn Al Rayan, a UAE contractor, on its own domain. One approved timesheet drives both payroll and invoicing, with each agency kept separate.",
     categories: ["SaaS & Dashboards"],
     status: "In development",
     role: "I designed and built this",
@@ -298,10 +298,11 @@ const RAW_PROJECTS: Project[] = [
     architecture: [
       "Public site plus portals for the agency, clients, workers and suppliers",
       "Admin and client dashboards with secure sign-in",
-      "Each company’s data stays separate",
+      "Multi-tenant — each agency's data stays separate, on its own domain",
       "Plans and billing for monthly or yearly subscriptions",
     ],
     highlights: [
+      "Live with Rukn Al Rayan (UAE) for sales, clients, workers and deployments",
       "Track workers, documents, deployments and invoices",
       "One approved timesheet feeds payroll and invoicing",
       "A log of every approval and admin action",

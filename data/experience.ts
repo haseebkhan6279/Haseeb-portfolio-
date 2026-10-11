@@ -44,8 +44,8 @@ export const EXPERIENCE: Experience[] = [
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "React Native"],
   },
   {
-    company: "Freelance",
-    type: "Self-employed · Remote",
+    company: "Tekvers",
+    type: "Part-time contract · Remote",
     period: "Jan 2025 — Present",
     summary:
       "Design, build and launch production web and mobile products for clients in the UK, US and Pakistan — owning scope, architecture, delivery and post-launch support.",

@@ -7,38 +7,34 @@ import { PROCESS } from "@/data/experience";
 import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import SectionHeading from "@/components/ui/SectionHeading";
 
+const TINTS = ["#b69cff", "#ff7a59", "#ffc861", "#7ef0b5"];
+const WORDS = ["Listen", "Shape", "Build", "Launch"];
+
+/** Sticky stacking cards: each step pins, and the ones beneath shrink back as the next arrives. */
 export default function Process() {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return;
-      const q = gsap.utils.selector(root);
-      const mm = gsap.matchMedia();
-      // The rail fills as you scroll: horizontal on desktop, vertical on mobile.
-      mm.add("(min-width: 768px)", () => {
-        gsap.fromTo(q(".process-fill"), { scaleX: 0 }, {
-          scaleX: 1,
+      const cards = gsap.utils.toArray<HTMLElement>(".proc-card", root.current);
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+        if (!next) return;
+        gsap.to(card.querySelector(".proc-inner"), {
+          scale: 0.9 + i * 0.02,
+          filter: "brightness(0.55)",
           ease: "none",
-          scrollTrigger: { trigger: q(".process-list")[0], start: "top 75%", end: "bottom 55%", scrub: 0.6 },
+          scrollTrigger: { trigger: next, start: "top bottom", end: "top 20%", scrub: true },
         });
       });
-      mm.add("(max-width: 767px)", () => {
-        gsap.fromTo(q(".process-fill"), { scaleY: 0 }, {
-          scaleY: 1,
+      gsap.utils.toArray<HTMLElement>(".proc-word", root.current).forEach((el) => {
+        gsap.fromTo(el, { yPercent: 40 }, {
+          yPercent: -40,
           ease: "none",
-          scrollTrigger: { trigger: q(".process-list")[0], start: "top 70%", end: "bottom 60%", scrub: 0.6 },
+          scrollTrigger: { trigger: el.closest(".proc-card"), start: "top bottom", end: "bottom top", scrub: true },
         });
       });
-      gsap.from(q(".process-step"), {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        ease: "expo.out",
-        stagger: 0.12,
-        scrollTrigger: { trigger: q(".process-list")[0], start: "top 80%", once: true },
-      });
-      return () => mm.revert();
     },
     { scope: root },
   );
@@ -46,35 +42,53 @@ export default function Process() {
   return (
     <section ref={root} id="process" className="section scroll-mt-16 border-y border-line bg-bg-2">
       <div className="shell">
-        <SectionHeading index="03" name="Process" title="A clear process," accent="no surprises.">
+        <SectionHeading index="05" name="Process" title="A clear process," accent="no surprises.">
           You always know what’s being built, what it costs and when it ships. Here’s how a typical project runs.
         </SectionHeading>
 
-        <div className="process-list relative">
-          {/* Rail */}
-          <div aria-hidden className="absolute left-[19px] top-2 bottom-2 w-px bg-line-strong md:left-0 md:right-0 md:top-[19px] md:bottom-auto md:h-px md:w-auto">
-            <div className="process-fill h-full w-full origin-top bg-accent md:origin-left" />
-          </div>
-
-          <ol className="relative grid gap-10 md:grid-cols-4 md:gap-8">
-            {PROCESS.map((p) => (
-              <li key={p.step} className="process-step relative pl-16 md:pl-0">
-                <span className="absolute left-0 top-0 grid h-10 w-10 place-items-center rounded-full border border-line-strong bg-bg-2 font-mono text-xs font-medium text-fg md:relative">
-                  {p.step}
-                </span>
-                <h3 className="font-display text-[1.4rem] md:mt-8">{p.title}</h3>
-                <p className="mt-3 leading-relaxed text-fg-2">{p.text}</p>
+        <ol className="relative">
+          {PROCESS.map((p, i) => {
+            const tint = TINTS[i % TINTS.length];
+            return (
+              <li
+                key={p.step}
+                className="proc-card sticky pb-6"
+                style={{ top: `calc(6rem + ${i * 1.25}rem)` }}
+              >
+                <div className="proc-inner gradient-border relative grid origin-top overflow-hidden rounded-[32px] bg-surface p-7 shadow-[var(--shadow)] sm:p-10 md:min-h-[22rem] md:grid-cols-[1fr_1.1fr] md:gap-10 md:p-12">
+                  <div
+                    aria-hidden
+                    className="absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-[80px]"
+                    style={{ background: tint }}
+                  />
+                  <div className="relative flex flex-col">
+                    <span className="font-mono text-xs uppercase tracking-[0.14em]" style={{ color: tint }}>
+                      Step {p.step} / {String(PROCESS.length).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-5 font-display text-[clamp(2rem,4vw,3.25rem)] leading-none tracking-[-0.04em]">{p.title}</h3>
+                    <p className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-fg-2">{p.text}</p>
+                  </div>
+                  <div className="relative mt-8 hidden items-center justify-end overflow-hidden md:mt-0 md:flex">
+                    <span
+                      aria-hidden
+                      className="proc-word select-none font-display text-[clamp(4rem,9vw,8.5rem)] leading-none tracking-[-0.06em] text-transparent"
+                      style={{ WebkitTextStroke: `1.5px ${tint}` }}
+                    >
+                      {WORDS[i] ?? p.title}
+                    </span>
+                  </div>
+                </div>
               </li>
-            ))}
-          </ol>
-        </div>
+            );
+          })}
+        </ol>
 
-        <div className="mt-14 flex flex-col items-start gap-4 rounded-[24px] border border-line bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+        <div className="gradient-border relative mt-10 flex flex-col items-start gap-4 overflow-hidden rounded-[28px] bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:p-9">
           <div>
-            <p className="font-display text-xl">Have a project in mind?</p>
+            <p className="font-display text-2xl tracking-[-0.03em]">Have a project in mind?</p>
             <p className="mt-1 text-fg-2">Get a free consultation and a fixed quote — no commitment.</p>
           </div>
-          <Link href="/contact" className="btn btn-dark w-full shrink-0 sm:w-auto">
+          <Link href="/contact" className="btn btn-primary w-full shrink-0 sm:w-auto">
             Get a free quote <ArrowUpRight size={16} />
           </Link>
         </div>

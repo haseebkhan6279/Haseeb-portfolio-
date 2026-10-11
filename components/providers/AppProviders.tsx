@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import CommandPalette from "@/components/ui/CommandPalette";
+import Cursor from "@/components/ui/Cursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
 /** Drives Lenis from GSAP's ticker so ScrollTrigger and smooth scroll stay in lockstep. */
@@ -41,6 +42,7 @@ export default function AppProviders({ children }: { children: React.ReactNode }
       <LenisGsapBridge />
       <ScrollProgress />
       <CommandPalette />
+      <Cursor />
       {children}
     </ReactLenis>
   );

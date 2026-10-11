@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: Props) {
           <span aria-hidden>·</span>
           <span>{post.readingTimeMinutes} min read</span>
         </div>
-        <h1 className="mt-6 font-serif text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.08] tracking-[-0.03em]">{post.title}</h1>
+        <h1 className="mt-6 font-display text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.08] tracking-[-0.03em]">{post.title}</h1>
         <p className="lede mt-6">{post.excerpt}</p>
         <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tags">
           {post.tags.map((tag) => (

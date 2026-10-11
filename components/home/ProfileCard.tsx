@@ -10,7 +10,7 @@ import Counter from "@/components/ui/Counter";
 import { Reveal } from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-const LEVEL_BG = ["var(--surface-3)", "#0e4429", "#006d32", "#26a641", "#39d353"];
+const LEVEL_BG = ["var(--surface-3)", "#3b2d6b", "#6a4fc2", "#b69cff", "#ff9a6b"];
 
 const LANG_COLORS: Record<string, string> = {
   TypeScript: "#3178c6",
@@ -23,7 +23,7 @@ const LANG_COLORS: Record<string, string> = {
 
 const FACTS: [string, string][] = [
   ["Based in", "Lahore, Pakistan — working remotely"],
-  ["Currently", "Web Developer at Hypelet + freelance"],
+  ["Currently", "Full-time at Hypelet · part-time contract at Tekvers"],
   ["Focus", "SaaS, booking, e-commerce & mobile"],
   ["Education", "BS Computer Science · MS in progress"],
 ];
@@ -147,7 +147,7 @@ export default function ProfileCard({ github }: { github: GithubProfile | null }
   return (
     <section ref={root} id="about" className="section scroll-mt-16">
       <div className="shell">
-        <SectionHeading index="04" name="About" title="A developer who thinks like" accent="a product owner.">
+        <SectionHeading index="06" name="About" title="A developer who thinks like" accent="a product owner.">
           {PROFILE.manifesto}
         </SectionHeading>
 
@@ -158,8 +158,8 @@ export default function ProfileCard({ github }: { github: GithubProfile | null }
               the UK, the US and Pakistan.
             </p>
             <p className="mt-5 max-w-xl leading-relaxed text-fg-2">
-              Today I build product features at Hypelet and partner with a small number of freelance clients each
-              quarter. I work across the whole stack — Next.js and React on the front, Node.js and NestJS on the back,
+              Today I build product features full-time at Hypelet and work part-time on contract with Tekvers. I
+              work across the whole stack — Next.js and React on the front, Node.js and NestJS on the back,
               React Native for mobile — so you get one person accountable from the first wireframe to the production
               launch.
             </p>

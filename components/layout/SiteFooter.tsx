@@ -3,7 +3,8 @@
 import { ArrowUp, ArrowUpRight, Check, Copy } from "lucide-react";
 import Link from "next/link";
 import { useLenis } from "lenis/react";
-import { useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import { CONTACT, PROFILE, SOCIALS } from "@/data/site";
 import LocalTime from "@/components/ui/LocalTime";
 import Magnetic from "@/components/ui/Magnetic";
@@ -26,6 +27,11 @@ const PROFILES = [
 export default function SiteFooter() {
   const lenis = useLenis();
   const [copied, setCopied] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const nameY = useTransform(scrollYProgress, [0, 1], ["60%", "0%"]);
+  const nameScale = useTransform(scrollYProgress, [0, 1], [0.86, 1]);
+  const glowY = useTransform(scrollYProgress, [0, 1], ["-30%", "10%"]);
 
   async function copyEmail() {
     try {
@@ -38,8 +44,9 @@ export default function SiteFooter() {
   }
 
   return (
-    <footer className="theme-ink relative isolate overflow-hidden">
-      <div aria-hidden className="pointer-events-none absolute -right-32 -top-32 -z-10 h-[460px] w-[460px] rounded-full bg-accent/20 blur-[130px]" />
+    <footer ref={ref} className="theme-ink relative isolate overflow-hidden">
+      <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute -right-32 -top-32 -z-10 h-[520px] w-[520px] rounded-full bg-[#6d4bff]/30 blur-[130px]" />
+      <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[420px] w-[420px] rounded-full bg-[#ff5a3c]/20 blur-[130px]" />
       <div className="shell relative pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-20 sm:pt-28">
         <div className="grid gap-14 lg:grid-cols-[1.35fr_1fr] lg:items-end">
           <div>
@@ -92,12 +99,14 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <p
-          aria-hidden
-          className="pointer-events-none mt-20 select-none whitespace-nowrap text-center font-display text-[clamp(3rem,13.5vw,11.75rem)] leading-[0.8] tracking-[-0.06em] text-fg/[0.06] sm:mt-28"
-        >
-          {PROFILE.displayName}
-        </p>
+        <div aria-hidden className="mt-20 overflow-hidden sm:mt-28">
+          <motion.p
+            style={{ y: nameY, scale: nameScale }}
+            className="text-gradient pointer-events-none origin-bottom select-none whitespace-nowrap pb-[0.08em] text-center font-display text-[clamp(3rem,14.5vw,13rem)] font-bold leading-[0.85] tracking-[-0.06em] opacity-90"
+          >
+            {PROFILE.displayName}
+          </motion.p>
+        </div>
 
         <div className="mt-6 flex flex-col gap-5 border-t border-line pt-6 text-sm text-muted md:flex-row md:items-center md:justify-between">
           <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer">

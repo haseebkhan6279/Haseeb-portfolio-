@@ -17,7 +17,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
         <span aria-hidden>·</span>
         <span>{post.readingTimeMinutes} min</span>
       </div>
-      <h2 className="font-serif text-2xl leading-snug tracking-tight transition-colors group-hover:text-accent">
+      <h2 className="font-display text-2xl leading-snug tracking-tight transition-colors group-hover:text-accent">
         {post.title}
       </h2>
       <p className="flex-1 text-sm leading-relaxed text-fg-2">{post.excerpt}</p>

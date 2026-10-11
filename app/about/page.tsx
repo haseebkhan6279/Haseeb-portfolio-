@@ -3,7 +3,9 @@ import Experience from "@/components/home/Experience";
 import Profile from "@/components/home/Profile";
 import Skills from "@/components/home/Skills";
 import StackMarquee from "@/components/home/StackMarquee";
+import { PortraitAside } from "@/components/ui/HeaderAsides";
 import PageHeader from "@/components/ui/PageHeader";
+import { getProfilePhoto } from "@/lib/profile-photo";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -23,6 +25,8 @@ export default function AboutPage() {
         title="Learned by"
         accent="building."
         lede="I build websites and apps for businesses. Computer Science graduate (UOL), Master’s in progress at ITU. Open to client work and full-time remote roles."
+        watermark="About"
+        aside={<PortraitAside photo={getProfilePhoto()} />}
       />
       <StackMarquee />
       <Profile />

@@ -17,10 +17,11 @@ export const PROFILE = {
 
 export const NAV_LINKS = [
   { label: "Work", href: "/#work" },
+  { label: "SaaS", href: "/#dashboards" },
   { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#process" },
   { label: "About", href: "/#about" },
   { label: "Experience", href: "/#experience" },
+  { label: "Blog", href: "/blog" },
 ] as const;
 
 export const CONTACT = {

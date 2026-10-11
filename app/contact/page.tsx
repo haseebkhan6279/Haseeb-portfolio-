@@ -1,9 +1,9 @@
 import { ArrowUpRight, Mail } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import { GithubIcon, LinkedinIcon, WhatsappIcon } from "@/components/ui/BrandIcons";
-import LocalTime from "@/components/ui/LocalTime";
+import { AvailabilityAside } from "@/components/ui/HeaderAsides";
 import PageHeader from "@/components/ui/PageHeader";
-import { CONTACT, PROFILE } from "@/data/site";
+import { CONTACT } from "@/data/site";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -34,6 +34,8 @@ export default function ContactPage() {
         title="Let’s talk about"
         accent="your project."
         lede="Share the goal, timeline and budget. I’ll reply within 24 hours with a clear next step — usually a few questions or a call."
+        watermark="Hello"
+        aside={<AvailabilityAside />}
       />
       <div className="shell grid min-w-0 gap-6 pb-28 lg:grid-cols-[1.45fr_1fr] lg:gap-8">
         <div className="card min-w-0 overflow-hidden p-5 shadow-[var(--shadow-sm)] sm:p-9">
@@ -84,14 +86,6 @@ export default function ContactPage() {
             </ol>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-line bg-surface p-5 text-sm">
-            <span className="flex items-center gap-2.5 text-fg">
-              <span className="status-dot" /> {PROFILE.availability}
-            </span>
-            <span className="text-muted">
-              <LocalTime /> · Lahore
-            </span>
-          </div>
         </aside>
       </div>
     </>

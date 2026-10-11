@@ -1,19 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { EXPERIENCE } from "@/data/experience";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function Experience() {
+  const list = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({ target: list, offset: ["start 70%", "end 60%"] });
+  const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+
   return (
     <section id="experience" className="section scroll-mt-16 border-t border-line">
       <div className="shell">
-        <SectionHeading index="05" name="Experience" title="Where I’ve been" accent="building.">
-          Product teams, freelance clients and the agency internship where it started.
+        <SectionHeading index="07" name="Experience" title="Where I’ve been" accent="building.">
+          Product teams at Hypelet and Tekvers, and the agency internship where it started.
         </SectionHeading>
 
-        <ol className="relative">
+        <ol ref={list} className="relative lg:pl-12">
+          <div aria-hidden className="absolute bottom-0 left-0 top-0 hidden w-px bg-line lg:block">
+            <motion.div style={{ scaleY: fill }} className="h-full w-full origin-top bg-[image:linear-gradient(to_bottom,#b69cff,#ff7a59,#ffc861)]" />
+          </div>
           {EXPERIENCE.map((xp, i) => {
             const current = xp.period.includes("Present");
             return (
@@ -23,11 +31,12 @@ export default function Experience() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.8, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="grid gap-5 border-t border-line py-10 sm:py-12 lg:grid-cols-[260px_1fr] lg:gap-14"
+                className="relative grid gap-5 border-t border-line py-10 sm:py-12 lg:grid-cols-[260px_1fr] lg:gap-14"
               >
+                <span aria-hidden className={`absolute -left-12 top-11 hidden h-3 w-3 -translate-x-1/2 rounded-full border-2 border-bg lg:block ${current ? "bg-accent-2 shadow-[0_0_0_6px_rgb(255_122_89/0.18)]" : "bg-accent"}`} />
                 <div>
                   <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{xp.period}</p>
-                  <p className="mt-3 font-display text-[1.75rem] leading-none">{xp.company}</p>
+                  <p className="mt-3 font-display text-[2rem] leading-none tracking-[-0.035em]">{xp.company}</p>
                   <p className="mt-2 text-sm text-fg-2">{xp.type}</p>
                   {current ? (
                     <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-fg-2">

@@ -39,7 +39,7 @@ export default function Preloader() {
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="text-center">
-            <p className="font-serif text-5xl tracking-tight">{PROFILE.displayName}</p>
+            <p className="font-display text-5xl tracking-tight">{PROFILE.displayName}</p>
             <p className="mt-3 text-xs uppercase tracking-[0.2em] text-muted">{PROFILE.studio}</p>
           </div>
         </motion.div>

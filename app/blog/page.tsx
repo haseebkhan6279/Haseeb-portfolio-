@@ -1,7 +1,8 @@
 import BlogCard from "@/components/blog/BlogCard";
+import { LatestPostAside } from "@/components/ui/HeaderAsides";
 import PageHeader from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
-import { getAllPosts } from "@/lib/blog";
+import { formatPostDate, getAllPosts } from "@/lib/blog";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -14,6 +15,7 @@ export const metadata = buildPageMetadata({
 export default function BlogPage() {
   const posts = getAllPosts();
   const categories = [...new Set(posts.map((p) => p.category))];
+  const latest = posts[0];
 
   return (
     <>
@@ -22,6 +24,21 @@ export default function BlogPage() {
         title="Notes from"
         accent="the work."
         lede="Practical write-ups on websites, speed, Google search, shops and automation."
+        watermark="Notes"
+        aside={
+          latest ? (
+            <LatestPostAside
+              post={{
+                slug: latest.slug,
+                title: latest.title,
+                excerpt: latest.excerpt,
+                category: latest.category,
+                date: formatPostDate(latest.publishedAt),
+                minutes: latest.readingTimeMinutes,
+              }}
+            />
+          ) : undefined
+        }
       >
         <div className="mt-8 flex flex-wrap gap-2">
           {categories.map((c) => (

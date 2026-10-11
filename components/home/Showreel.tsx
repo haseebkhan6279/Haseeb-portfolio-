@@ -12,7 +12,7 @@ export default function Showreel() {
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
           <div>
             <p className="kicker">How we work</p>
-            <h2 className="font-serif mt-3 text-[clamp(1.8rem,3.2vw,2.6rem)] tracking-tight">From brief to live site</h2>
+            <h2 className="font-display mt-3 text-[clamp(1.8rem,3.2vw,2.6rem)] tracking-tight">From brief to live site</h2>
           </div>
           <Link href="/contact" className="text-sm text-fg-2 underline-offset-4 hover:text-accent hover:underline">
             Start with a brief →
@@ -27,8 +27,8 @@ export default function Showreel() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <p className="font-serif text-4xl text-accent/80">{step.step}</p>
-              <h3 className="mt-4 font-serif text-2xl tracking-tight">{step.title}</h3>
+              <p className="font-display text-4xl text-accent/80">{step.step}</p>
+              <h3 className="mt-4 font-display text-2xl tracking-tight">{step.title}</h3>
               <p className="mt-3 text-[0.98rem] leading-relaxed text-fg-2">{step.text}</p>
             </motion.div>
           ))}
