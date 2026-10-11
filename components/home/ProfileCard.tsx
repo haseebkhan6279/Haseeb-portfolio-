@@ -10,7 +10,7 @@ import Counter from "@/components/ui/Counter";
 import { Reveal } from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-const LEVEL_BG = ["var(--surface-3)", "#3b2d6b", "#6a4fc2", "#b69cff", "#ff9a6b"];
+const LEVEL_BG = ["var(--surface-3)", "#404040", "#737373", "#a3a3a3", "#fafafa"];
 
 const LANG_COLORS: Record<string, string> = {
   TypeScript: "#3178c6",

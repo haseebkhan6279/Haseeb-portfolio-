@@ -79,7 +79,7 @@ export default function SiteHeader() {
           {/* Hairline gradient glow along the bottom edge of the capsule. */}
           <span
             aria-hidden
-            className={`pointer-events-none absolute inset-x-10 -bottom-px h-px bg-[image:linear-gradient(90deg,transparent,#b69cff,#ff7a59,transparent)] transition-opacity duration-700 ${
+            className={`pointer-events-none absolute inset-x-10 -bottom-px h-px bg-[image:linear-gradient(90deg,transparent,#737373,#737373,transparent)] transition-opacity duration-700 ${
               compact ? "opacity-70" : "opacity-0"
             }`}
           />

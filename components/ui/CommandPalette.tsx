@@ -93,6 +93,9 @@ export default function CommandPalette() {
                     <Command.Item className={item} onSelect={() => go("/work")}>
                       <FolderKanban size={16} /> All work
                     </Command.Item>
+                    <Command.Item className={item} onSelect={() => go("/archive")}>
+                      <FolderKanban size={16} /> Project archive
+                    </Command.Item>
                     <Command.Item className={item} onSelect={() => go("/about")}>
                       <User size={16} /> About
                     </Command.Item>

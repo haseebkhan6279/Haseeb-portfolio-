@@ -8,14 +8,14 @@ import { SKILL_GROUPS } from "@/data/experience";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const ICONS: LucideIcon[] = [Layout, Server, Database, Smartphone, Boxes];
-const TINTS = ["#b69cff", "#ff7a59", "#ffc861", "#7ef0b5", "#7ec8ff"];
+const TINTS = ["#e5e5e5", "#d4d4d4", "#a3a3a3"];
 // Bento spans on large screens: the first group is the hero tile.
 const SPANS = ["lg:col-span-2 lg:row-span-2", "", "", "lg:col-span-2", ""];
 
 export default function Skills() {
   return (
     <section id="skills" className="section relative scroll-mt-16 overflow-hidden border-t border-line bg-bg-2">
-      <div aria-hidden className="aurora -right-40 top-20 h-[28rem] w-[28rem] bg-[#ff5a3c] opacity-20" />
+      <div aria-hidden className="aurora -right-40 top-20 h-[28rem] w-[28rem] bg-[#ffffff] opacity-[0.07]" />
       <div className="shell relative">
         <SectionHeading title="Modern tools," accent="production-proven.">
           The stack I use day to day to ship fast, maintainable products — and the right tool when a project needs
@@ -51,7 +51,7 @@ export default function Skills() {
                   <div className="gradient-border relative flex h-full flex-col overflow-hidden rounded-[24px] bg-surface p-6 sm:p-7">
                     <div
                       aria-hidden
-                      className="absolute -bottom-20 -right-20 h-56 w-56 rounded-full opacity-25 blur-[70px]"
+                      className="absolute -bottom-20 -right-20 h-56 w-56 rounded-full opacity-[0.08] blur-[70px]"
                       style={{ background: tint }}
                     />
                     <div className="relative flex items-center gap-3 [transform:translateZ(40px)]">

@@ -35,17 +35,14 @@ function Blob({ progress, reduced }: Props) {
         <mesh ref={mesh}>
           <icosahedronGeometry args={[1.25, 64]} />
           <MeshDistortMaterial
-            color="#ffffff"
-            metalness={0.9}
-            roughness={0.22}
+            color="#161616"
+            metalness={1}
+            roughness={0.16}
             clearcoat={1}
-            clearcoatRoughness={0.1}
-            iridescence={1}
-            iridescenceIOR={1.6}
-            iridescenceThicknessRange={[120, 800]}
+            clearcoatRoughness={0.06}
             distort={0.38}
             speed={reduced ? 0 : 1.8}
-            envMapIntensity={1.25}
+            envMapIntensity={1.6}
           />
         </mesh>
       </Float>
@@ -54,20 +51,20 @@ function Blob({ progress, reduced }: Props) {
       <Float speed={reduced ? 0 : 2.4} floatIntensity={2}>
         <mesh position={[2.6, 1.35, -0.8]}>
           <sphereGeometry args={[0.22, 48, 48]} />
-          <meshPhysicalMaterial color="#ff7a59" metalness={0.6} roughness={0.15} clearcoat={1} envMapIntensity={1.2} />
+          <meshPhysicalMaterial color="#e5e5e5" metalness={1} roughness={0.12} clearcoat={1} envMapIntensity={1.2} />
         </mesh>
       </Float>
       <Float speed={reduced ? 0 : 1.9} floatIntensity={2.4}>
         <mesh position={[-2.3, -1.45, -0.4]} rotation={[0.6, 0.3, 0]}>
           <torusGeometry args={[0.26, 0.09, 32, 96]} />
-          <meshPhysicalMaterial color="#b69cff" metalness={0.8} roughness={0.12} clearcoat={1} envMapIntensity={1.3} />
+          <meshPhysicalMaterial color="#1c1c1c" metalness={1} roughness={0.14} clearcoat={1} envMapIntensity={1.6} />
         </mesh>
       </Float>
     </group>
   );
 }
 
-/** Iridescent liquid-metal blob for the hero. Lit by procedural lightformers — no HDR download. */
+/** Black-chrome liquid blob for the hero: dark body, crisp white studio reflections. Procedural lightformers — no HDR download. */
 export default function HeroBlob({ progress, reduced }: Props) {
   return (
     <Canvas
@@ -76,16 +73,17 @@ export default function HeroBlob({ progress, reduced }: Props) {
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       frameloop={reduced ? "demand" : "always"}
     >
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[3, 4, 5]} intensity={0.45} />
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[3, 4, 5]} intensity={0.35} />
       <Blob progress={progress} reduced={reduced} />
       <Environment resolution={256} frames={1}>
-        <color attach="background" args={["#1a1233"]} />
-        <Lightformer form="rect" intensity={5} color="#b69cff" position={[-5, 2, 2]} scale={[8, 5, 1]} />
-        <Lightformer form="rect" intensity={6} color="#ff7a59" position={[5, -1, 1]} scale={[7, 6, 1]} />
-        <Lightformer form="ring" intensity={4} color="#ffc861" position={[0, 4, -3]} scale={3} />
-        <Lightformer form="rect" intensity={0.8} color="#ffffff" position={[0, -4, 3]} scale={[8, 1, 1]} />
-        <Lightformer form="circle" intensity={2.5} color="#7ef0ff" position={[-3, -3, -2]} scale={2.5} />
+        <color attach="background" args={["#000000"]} />
+        {/* Thin strip lights read as sharp studio highlights on black chrome. */}
+        <Lightformer form="rect" intensity={6} color="#ffffff" position={[-4, 2, 2]} rotation-y={Math.PI / 3} scale={[10, 0.6, 1]} />
+        <Lightformer form="rect" intensity={5} color="#ffffff" position={[4, -1, 1]} rotation-y={-Math.PI / 3} scale={[10, 0.45, 1]} />
+        <Lightformer form="rect" intensity={3} color="#ffffff" position={[0, 4, -2]} rotation-x={Math.PI / 2} scale={[8, 1.2, 1]} />
+        <Lightformer form="ring" intensity={2} color="#ffffff" position={[0, 0, -6]} scale={4} />
+        <Lightformer form="rect" intensity={0.6} color="#ffffff" position={[0, -4, 3]} scale={[8, 1, 1]} />
       </Environment>
     </Canvas>
   );

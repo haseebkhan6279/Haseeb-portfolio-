@@ -16,9 +16,9 @@ function BrowserBar({ host, tint }: { host: string; tint?: string }) {
   return (
     <div className="flex h-9 items-center gap-3 border-b border-line bg-surface-2/90 px-4">
       <span className="flex gap-1.5">
-        <i className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-        <i className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-        <i className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+        <i className="h-2.5 w-2.5 rounded-full bg-[#3f3f3f]" />
+        <i className="h-2.5 w-2.5 rounded-full bg-[#3f3f3f]" />
+        <i className="h-2.5 w-2.5 rounded-full bg-[#3f3f3f]" />
       </span>
       <span className="mx-auto flex min-w-0 items-center gap-1.5 rounded-md bg-bg/60 px-3 py-1 font-mono text-[11px] text-fg-2">
         <Lock size={10} style={{ color: tint }} />
@@ -217,7 +217,7 @@ export default function Dashboards() {
       <div className="dash-pin relative hidden h-svh flex-col overflow-hidden pb-6 pt-[5.5rem] pin:flex">
         <div
           aria-hidden
-          className="aurora left-[60%] top-1/2 h-[30rem] w-[50rem] -translate-x-1/2 -translate-y-1/3 opacity-30 transition-colors duration-700"
+          className="aurora left-[60%] top-1/2 h-[30rem] w-[50rem] -translate-x-1/2 -translate-y-1/3 opacity-[0.07] transition-colors duration-700"
           style={{ background: current.tint }}
         />
 

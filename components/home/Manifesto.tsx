@@ -56,7 +56,7 @@ export default function Manifesto({ photo }: { photo: string | null }) {
                   className="object-cover object-[64%_center]"
                 />
               ) : (
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#6d4bff,transparent_55%),radial-gradient(circle_at_80%_80%,#ff5a3c,transparent_50%)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#2e2e2e,transparent_55%),radial-gradient(circle_at_80%_80%,#1c1c1c,transparent_50%)]">
                   <span className="serif-i absolute inset-0 grid place-items-center text-[9rem] leading-none">HK</span>
                 </div>
               )}

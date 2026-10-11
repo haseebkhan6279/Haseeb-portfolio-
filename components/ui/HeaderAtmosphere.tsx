@@ -12,8 +12,8 @@ export default function HeaderAtmosphere({ watermark }: { watermark?: string }) 
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <motion.div style={{ y: glowY }} className="aurora -left-40 -top-40 h-[34rem] w-[34rem] bg-[#6d4bff] opacity-30" />
-      <motion.div style={{ y: glowY }} className="aurora -right-32 top-24 h-[28rem] w-[28rem] bg-[#ff5a3c] opacity-20" />
+      <motion.div style={{ y: glowY }} className="aurora -left-40 -top-40 h-[34rem] w-[34rem] bg-[#ffffff] opacity-[0.07]" />
+      <motion.div style={{ y: glowY }} className="aurora -right-32 top-24 h-[28rem] w-[28rem] bg-[#ffffff] opacity-[0.07]" />
       <div className="bg-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_70%_70%_at_30%_0%,#000,transparent)]" />
       {watermark ? (
         <motion.p

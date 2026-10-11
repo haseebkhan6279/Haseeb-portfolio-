@@ -7,7 +7,7 @@ import Hero from "@/components/home/Hero";
 import Manifesto from "@/components/home/Manifesto";
 import Process from "@/components/home/Process";
 import Profile from "@/components/home/Profile";
-import Projects, { ProjectArchive } from "@/components/home/Projects";
+import Projects from "@/components/home/Projects";
 import Services from "@/components/home/Services";
 import Skills from "@/components/home/Skills";
 import { SEO } from "@/lib/metadata";
@@ -28,7 +28,6 @@ export default function Home() {
       <ClientMarquee />
       <Manifesto photo={photo} />
       <Projects />
-      <ProjectArchive />
       <Dashboards />
       <Services />
       <Process />

@@ -7,7 +7,7 @@ import { PROCESS } from "@/data/experience";
 import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-const TINTS = ["#b69cff", "#ff7a59", "#ffc861", "#7ef0b5"];
+const TINTS = ["#e5e5e5", "#d4d4d4", "#a3a3a3", "#737373"];
 const WORDS = ["Listen", "Shape", "Build", "Launch"];
 
 /** Sticky stacking cards: each step pins, and the ones beneath shrink back as the next arrives. */
@@ -58,7 +58,7 @@ export default function Process() {
                 <div className="proc-inner gradient-border relative grid origin-top overflow-hidden rounded-[32px] bg-surface p-7 shadow-[var(--shadow)] sm:p-10 md:min-h-[22rem] md:grid-cols-[1fr_1.1fr] md:gap-10 md:p-12">
                   <div
                     aria-hidden
-                    className="absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-[80px]"
+                    className="absolute -left-24 -top-24 h-72 w-72 rounded-full opacity-[0.08] blur-[80px]"
                     style={{ background: tint }}
                   />
                   <div className="relative flex flex-col">

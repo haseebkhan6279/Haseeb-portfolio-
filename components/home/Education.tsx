@@ -12,7 +12,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 const ease = [0.16, 1, 0.3, 1] as const;
 // Oldest → newest, left to right.
 const JOURNEY = [...EDUCATION].reverse();
-const TINTS = ["#ffc861", "#ff7a59", "#b69cff"];
+const TINTS = ["#e5e5e5", "#d4d4d4", "#a3a3a3"];
 
 function monthIndex(ym: string) {
   const [y, m] = ym.split("-").map(Number);
@@ -50,7 +50,7 @@ function StageCard({ e, i }: { e: EducationItem; i: number }) {
       </span>
 
       <div className="gradient-border relative mt-0 overflow-hidden rounded-[24px] bg-surface p-6 sm:p-7 lg:mt-6">
-        <div aria-hidden className="absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-25 blur-[60px]" style={{ background: tint }} />
+        <div aria-hidden className="absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-[0.08] blur-[60px]" style={{ background: tint }} />
         <p className="relative font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{e.period}</p>
         <h3 className="relative mt-3 font-display text-[1.45rem] leading-[1.1] tracking-[-0.03em]">{e.degree}</h3>
         <p className="relative mt-1.5 text-fg-2">{e.school}</p>
@@ -147,8 +147,8 @@ export default function Education() {
 
   return (
     <section ref={root} id="education" className="section relative scroll-mt-16 overflow-hidden border-t border-line">
-      <div aria-hidden className="aurora -left-40 top-1/3 h-[26rem] w-[26rem] bg-[#ffb340] opacity-15" />
-      <div aria-hidden className="aurora -right-40 bottom-0 h-[26rem] w-[26rem] bg-[#6d4bff] opacity-20" />
+      <div aria-hidden className="aurora -left-40 top-1/3 h-[26rem] w-[26rem] bg-[#ffffff] opacity-[0.07]" />
+      <div aria-hidden className="aurora -right-40 bottom-0 h-[26rem] w-[26rem] bg-[#ffffff] opacity-[0.07]" />
 
       <div className="shell relative">
         <SectionHeading title="Education &" accent="certifications.">
@@ -158,7 +158,7 @@ export default function Education() {
         <div className="edu-list relative">
           {/* Journey line */}
           <div aria-hidden className="absolute bottom-6 left-6 top-6 w-px bg-line-strong lg:bottom-auto lg:left-6 lg:right-6 lg:top-6 lg:h-px lg:w-auto">
-            <div className="edu-line-fill h-full w-full origin-top bg-[image:linear-gradient(to_bottom,#ffc861,#ff7a59,#b69cff)] lg:origin-left lg:bg-[image:linear-gradient(to_right,#ffc861,#ff7a59,#b69cff)]" />
+            <div className="edu-line-fill h-full w-full origin-top bg-[image:linear-gradient(to_bottom,#fafafa,#a3a3a3,#525252)] lg:origin-left lg:bg-[image:linear-gradient(to_right,#fafafa,#a3a3a3,#525252)]" />
           </div>
           <ol className="relative grid gap-8 lg:grid-cols-3 lg:gap-6">
             {JOURNEY.map((e, i) => (

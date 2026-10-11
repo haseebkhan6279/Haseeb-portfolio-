@@ -79,7 +79,7 @@ export function PortraitAside({ photo }: { photo: string | null }) {
           {photo ? (
             <Image src={photo} alt={`${PROFILE.displayName}, ${PROFILE.role}`} fill preload sizes="380px" className="object-cover object-[64%_center]" />
           ) : (
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#6d4bff,transparent_55%),radial-gradient(circle_at_80%_80%,#ff5a3c,transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#2e2e2e,transparent_55%),radial-gradient(circle_at_80%_80%,#1c1c1c,transparent_50%)]" />
           )}
         </motion.div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
@@ -110,7 +110,7 @@ export function AvailabilityAside() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.1, delay: 0.2, ease }}
     >
-      <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#7ef0b5] opacity-20 blur-[60px]" />
+      <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#ffffff] opacity-[0.06] blur-[60px]" />
       <p className="flex items-center gap-2.5 text-sm text-fg">
         <span className="status-dot" /> {PROFILE.availability}
       </p>
@@ -147,7 +147,7 @@ export function LatestPostAside({ post }: { post: LatestPost }) {
         data-cursor="Read"
         className="gradient-border group relative block overflow-hidden rounded-[28px] bg-surface p-7 sm:p-9"
       >
-        <div aria-hidden className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#6d4bff] opacity-25 blur-[70px] transition-opacity duration-500 group-hover:opacity-50" />
+        <div aria-hidden className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#ffffff] opacity-[0.06] blur-[70px] transition-opacity duration-500 group-hover:opacity-[0.12]" />
         <p className="relative flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-muted">
           <span className="rounded-full bg-[image:var(--gradient)] px-2.5 py-1 font-semibold text-accent-fg">Latest</span>
           <span className="text-accent">{post.category}</span> · {post.date} · {post.minutes} min

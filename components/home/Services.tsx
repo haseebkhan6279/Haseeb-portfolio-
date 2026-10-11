@@ -8,7 +8,7 @@ import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const ICONS: LucideIcon[] = [LayoutDashboard, CalendarCheck, ShoppingBag, Smartphone, Bot, Globe];
-const TINTS = ["#b69cff", "#ff7a59", "#ffc861", "#7ef0b5", "#7ec8ff", "#ff8fd1"];
+const TINTS = ["#e5e5e5", "#d4d4d4", "#a3a3a3"];
 
 function spot(e: React.PointerEvent<HTMLElement>) {
   const r = e.currentTarget.getBoundingClientRect();
@@ -56,7 +56,7 @@ export default function Services() {
   return (
     <section ref={root} id="services" className="relative scroll-mt-16">
       <div className="svc-pin relative overflow-hidden py-[clamp(4.5rem,8vw,6.75rem)] pin-tall:flex pin-tall:h-svh pin-tall:flex-col pin-tall:justify-center pin-tall:pb-8 pin-tall:pt-20">
-        <div aria-hidden className="aurora -left-40 top-1/3 h-[30rem] w-[30rem] bg-[#6d4bff] opacity-25" />
+        <div aria-hidden className="aurora -left-40 top-1/3 h-[30rem] w-[30rem] bg-[#ffffff] opacity-[0.07]" />
         <div className="shell">
           <SectionHeading title="Everything you need to" accent="launch & grow." className="!mb-10 pin-tall:!mb-8">
             One accountable partner for product design, engineering and launch — so you get a working product, not a
@@ -77,7 +77,7 @@ export default function Services() {
               >
                 <div
                   aria-hidden
-                  className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-30 blur-[60px] transition-opacity duration-500 group-hover:opacity-60"
+                  className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-[0.08] blur-[60px] transition-opacity duration-500 group-hover:opacity-[0.16]"
                   style={{ background: tint }}
                 />
                 <span

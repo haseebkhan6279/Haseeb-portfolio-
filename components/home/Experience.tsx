@@ -20,7 +20,7 @@ export default function Experience() {
 
         <ol ref={list} className="relative lg:pl-12">
           <div aria-hidden className="absolute bottom-0 left-0 top-0 hidden w-px bg-line lg:block">
-            <motion.div style={{ scaleY: fill }} className="h-full w-full origin-top bg-[image:linear-gradient(to_bottom,#b69cff,#ff7a59,#ffc861)]" />
+            <motion.div style={{ scaleY: fill }} className="h-full w-full origin-top bg-[image:linear-gradient(to_bottom,#fafafa,#a3a3a3,#525252)]" />
           </div>
           {EXPERIENCE.map((xp, i) => {
             const current = xp.period.includes("Present");

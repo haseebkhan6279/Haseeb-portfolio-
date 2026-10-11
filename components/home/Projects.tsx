@@ -45,7 +45,8 @@ function Filters({
   );
 }
 
-function Archive() {
+/** Filterable archive of every project — rendered on /archive. */
+export function Archive() {
   const [category, setCategory] = useState<ProjectCategory | "All">("All");
   const [active, setActive] = useState<Project>(PROJECTS.find((p) => p.slug === "ostello") ?? PROJECTS[0]);
 
@@ -202,7 +203,12 @@ export default function Projects() {
 
         <WorkShowcase />
 
-        <div className="mt-10 flex justify-stretch sm:justify-end">
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-end">
+          <Magnetic className="block w-full sm:inline-block sm:w-auto">
+            <Link href="/archive" className="btn btn-ghost w-full sm:w-auto">
+              Browse the archive <ArrowUpRight size={16} />
+            </Link>
+          </Magnetic>
           <Magnetic className="block w-full sm:inline-block sm:w-auto">
             <Link href="/work" className="btn btn-ghost w-full sm:w-auto">
               See all {PROJECTS.length} projects <ArrowUpRight size={16} />
@@ -210,20 +216,6 @@ export default function Projects() {
           </Magnetic>
         </div>
 
-      </div>
-    </section>
-  );
-}
-
-/** Filterable archive of every project — its own section after Selected work. */
-export function ProjectArchive() {
-  return (
-    <section id="archive" className="theme-ink section scroll-mt-16 border-t border-line">
-      <div className="shell">
-        <SectionHeading title="More from" accent="the archive.">
-          Filter by industry. Where a product is live, you can open it in one tap.
-        </SectionHeading>
-        <Archive />
       </div>
     </section>
   );

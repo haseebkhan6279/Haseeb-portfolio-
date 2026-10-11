@@ -101,15 +101,13 @@ export default function Hero({ photo }: { photo: string | null }) {
 
   return (
     <section ref={root} className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24 sm:pt-28">
-      {/* Atmosphere */}
+      {/* Atmosphere: one soft white spotlight from the top */}
       <div aria-hidden className="hero-aurora pointer-events-none absolute inset-0 -z-20">
-        <div data-depth="-0.6" className="aurora left-[-10%] top-[5%] h-[42vw] w-[42vw] bg-[#6d4bff]" />
-        <div data-depth="-0.4" className="aurora bottom-[-5%] right-[-8%] h-[38vw] w-[38vw] bg-[#ff5a3c] opacity-40" />
-        <div data-depth="-0.8" className="aurora left-[40%] top-[35%] h-[22vw] w-[22vw] bg-[#ffb340] opacity-25" />
+        <div data-depth="-0.3" className="absolute inset-x-0 top-0 h-[80%] bg-[radial-gradient(ellipse_55%_60%_at_50%_0%,rgb(255_255_255/0.09),transparent_70%)]" />
       </div>
       <div
         aria-hidden
-        className="bg-grid pointer-events-none absolute inset-0 -z-10 opacity-40 [mask-image:radial-gradient(ellipse_60%_55%_at_50%_45%,#000,transparent)]"
+        className="bg-grid pointer-events-none absolute inset-0 -z-10 opacity-30 [mask-image:radial-gradient(ellipse_60%_55%_at_50%_35%,#000,transparent)]"
       />
 
       {/* 3D scene */}
@@ -125,8 +123,8 @@ export default function Hero({ photo }: { photo: string | null }) {
         </div>
       </div>
 
-      {/* Scrim keeps type legible over the blob's highlights. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_50%_42%_at_50%_58%,rgb(7_6_13/0.6),transparent_72%)]" />
+      {/* Scrim keeps type legible over the blob's reflections. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_50%_42%_at_50%_58%,rgb(0_0_0/0.6),transparent_72%)]" />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-b from-transparent to-bg" />
 
       {/* Vertical social rail, desktop */}
@@ -163,7 +161,7 @@ export default function Hero({ photo }: { photo: string | null }) {
             Hi! I’m {PROFILE.displayName} — {PROFILE.role}
           </p>
 
-          <h1 className="hero-title mt-6 select-none [text-shadow:0_6px_40px_rgb(7_6_13/0.45)] sm:mt-7" aria-label="Building digital products that perform.">
+          <h1 className="hero-title mt-6 select-none [text-shadow:0_6px_40px_rgb(0_0_0/0.45)] sm:mt-7" aria-label="Building digital products that perform.">
             <span aria-hidden className="hero-line hero-line-a block overflow-hidden pb-[0.06em]">
               <span className="inline-block">Building</span>
             </span>
@@ -179,7 +177,7 @@ export default function Hero({ photo }: { photo: string | null }) {
             </span>
           </h1>
 
-          <p className="hero-in lede mt-6 max-w-[36rem] text-fg/80 [text-shadow:0_2px_18px_rgb(7_6_13/0.95)] sm:mt-7">
+          <p className="hero-in lede mt-6 max-w-[36rem] text-fg/80 [text-shadow:0_2px_18px_rgb(0_0_0/0.95)] sm:mt-7">
             Full-stack web &amp; mobile development for startups and growing businesses — SaaS dashboards, booking
             platforms, online stores and apps. Designed, built and shipped end to end.
           </p>
