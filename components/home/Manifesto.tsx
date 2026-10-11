@@ -71,7 +71,7 @@ export default function Manifesto({ photo }: { photo: string | null }) {
           </div>
           <motion.div
             style={{ y: badgeY }}
-            className="absolute -right-4 top-10 rounded-2xl border border-line bg-surface/80 px-4 py-3 shadow-[var(--shadow)] backdrop-blur-xl sm:-right-10"
+            className="absolute -right-4 bottom-28 rounded-2xl border border-line bg-surface/80 px-4 py-3 shadow-[var(--shadow)] backdrop-blur-xl sm:-right-10"
           >
             <p className="text-[11px] text-muted">Currently</p>
             <p className="text-sm font-semibold">Web Developer · Hypelet</p>
